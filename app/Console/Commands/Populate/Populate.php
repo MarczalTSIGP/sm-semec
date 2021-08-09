@@ -52,5 +52,6 @@ class Populate extends Command
         $this->call('populate:removal_types');
         $this->call('populate:inscriptions');
         $this->call('populate:servant_completary_datas');
+        $this->call('populate:roles');
     }
 }

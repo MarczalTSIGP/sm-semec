@@ -345,6 +345,49 @@ Breadcrumbs::for('servant.search.edicts.close', function ($trail) {
     $trail->push('Editais Fechados', route('servant.search.edicts.close'));
 });
 
+/* Roles
+|-------------------------------------------------------------------------- */
+
+Breadcrumbs::for('admin.roles', function ($trail) {
+    $trail->parent('admin.dashboard');
+    $trail->push('Cargos', route('admin.roles'));
+});
+
+Breadcrumbs::for('admin.search.roles', function ($trail) {
+    $trail->parent('admin.roles');
+    $trail->push('Buscar Cargos', route('admin.search.roles'));
+});
+
+Breadcrumbs::for('admin.roles.page', function ($trail) {
+    $trail->parent('admin.dashboard');
+    $trail->push('Cargos', route('admin.roles'));
+});
+
+Breadcrumbs::for('admin.search.roles.page', function ($trail) {
+    $trail->parent('admin.dashboard');
+    $trail->push('Cargos', route('admin.roles'));
+});
+
+Breadcrumbs::for('admin.new.role', function ($trail) {
+    $trail->parent('admin.roles');
+    $trail->push('Novo Cargo', route('admin.new.role'));
+});
+
+Breadcrumbs::for('admin.create.role', function ($trail) {
+    $trail->parent('admin.roles');
+    $trail->push('Novo Cargo', route('admin.create.role'));
+});
+
+Breadcrumbs::for('admin.edit.role', function ($trail, $id) {
+    $trail->parent('admin.roles');
+    $trail->push('Editar Cargo #'.$id, route('admin.edit.role', $id));
+});
+
+Breadcrumbs::for('admin.update.role', function ($trail, $id) {
+    $trail->parent('admin.roles');
+    $trail->push('Editar Cargo #'.$id, route('admin.edit.role', $id));
+});
+
 /* Servant Completary Data
 |-------------------------------------------------------------------------- */
 

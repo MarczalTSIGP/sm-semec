@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Models\Contract;
 use App\Models\Movement;
 use App\Models\Unit;
+use App\Models\Role;
 use App\Models\ServantCompletaryData;
 use App\Models\Servant;
 
@@ -31,6 +32,7 @@ class MovementController extends AppController
 
         return view('admin.servant_completary_data.movements.new', [
             'contract' => $contract,
+            'roles' => Role::all(),
             'units' => Unit::all(),
             'movement' => $movement,
             'completaryData' => $completaryData]);
@@ -66,6 +68,7 @@ class MovementController extends AppController
             $request->session()->flash('danger', 'Existem dados incorretos! Por favor verifique!');
             return view('admin.servant_completary_data.movements.new', [
                 'movement' => $movement,
+                'roles' => Role::all(),
                 'units' => Unit::all(),
                 'completaryData' => $completaryData])->withErrors($validator);
         }
@@ -96,6 +99,7 @@ class MovementController extends AppController
         return view('admin.servant_completary_data.movements.edit', [
             'movement' => $movement,
             'completaryData' => $completaryData,
+            'roles' => Role::all(),
             'units' => Unit::all()]);
     }
 
@@ -132,6 +136,7 @@ class MovementController extends AppController
                 $request->session()->flash('danger', 'Existem dados incorretos! Por favor verifique!');
                 return view('admin.servant_completary_data.movements.edit', [
                     'completaryData' => $completaryData,
+                    'roles' => Role::all(),
                     'units' => Unit::all(),
                     'movement' => $movement])->withErrors($validator);
         }

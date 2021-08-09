@@ -2,11 +2,13 @@
     @csrf
     @method($method)
 
-    @component('components.form.input_text', ['field'    => 'occupation',
+    @component('components.form.input_select', ['field'    => 'occupation',
                                               'label'    => 'Função',
                                               'model'    => 'movement',
                                               'value'    => $movement->occupation,
+                                              'options'  => $roles,
                                               'required' => true,
+                                              'default'  => 'Selecione uma função',
                                               'errors'   => $errors]) @endcomponent
 
     @component('components.form.input_radio_button', ['field'    => 'period',

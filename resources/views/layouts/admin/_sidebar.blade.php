@@ -42,5 +42,11 @@
       </span>
       Unidades
     </a>
+    <a class="list-group-item list-group-item-action {{ setActive(['admin/roles*']) }}" href="{{ route('admin.roles') }}">
+      <span class="icon mr-2">
+      <i class="fas fa-briefcase"></i>
+      </span>
+      Cargos
+    </a>
   </div>
 </div>

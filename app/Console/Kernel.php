@@ -13,6 +13,7 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
+        Commands\Populate\Roles::class,
         Commands\Populate\Inscriptions::class,
         Commands\Populate\ServantCompletaryDatas::class,
         Commands\Populate\RemovalTypes::class,
