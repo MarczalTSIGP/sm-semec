@@ -51,7 +51,7 @@ class EdictsController extends AppController
         $this->filterDateTimeFormat($data, ['started_at', 'ended_at']);
         $edict = new Edict($data);
         if ($validator->fails()) {
-            $request->session()->flash('danger', 'Existem dados incorretos! Por favor verifique!');
+            $request->session()->now('danger', 'Existem dados incorretos! Por favor verifique!');
             return view('admin.edicts.new', compact('edict'))->withErrors($validator);
         }
 
@@ -105,7 +105,7 @@ class EdictsController extends AppController
         $this->filterDateTimeFormat($data, ['started_at', 'ended_at']);
         $edict->fill($data);
         if ($validator->fails()) {
-            $request->session()->flash('danger', 'Existem dados incorretos! Por favor verifique!');
+            $request->session()->now('danger', 'Existem dados incorretos! Por favor verifique!');
             return view('admin.edicts.edit', compact('edict'))->withErrors($validator);
         }
 
