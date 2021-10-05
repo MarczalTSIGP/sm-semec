@@ -81,7 +81,7 @@ class InscriptionsController extends AppController
         $inscription->current_unit_id = $servant->currentUnit()->id;
 
         if ($validator->fails()) {
-            $request->session()->flash('danger', 'Existem dados incorretos! Por favor verifique!');
+            $request->session()->now('danger', 'Existem dados incorretos! Por favor verifique!');
 
             $iuids = $request->interested_unit_ids;
             $inscription->interested_unit_ids = isset($iuids) ? $iuids : []; /* @phpstan-ignore-line */
