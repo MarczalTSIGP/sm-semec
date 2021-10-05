@@ -88,7 +88,7 @@ class ServantCompletaryDataController extends AppController
         $contract = $servant->contracts->find($id);
 
         if ($validator->fails()) {
-            $request->session()->flash('danger', 'Existem dados incorretos! Por favor verifique!');
+            $request->session()->now('danger', 'Existem dados incorretos! Por favor verifique!');
             return view('admin.servant_completary_data.new', [
                 'completaryData' => $completaryData,
                 'contract' => $contract,
@@ -149,7 +149,7 @@ class ServantCompletaryDataController extends AppController
         $completaryData->fill($data);
 
         if ($validator->fails()) {
-                $request->session()->flash('danger', 'Existem dados incorretos! Por favor verifique!');
+                $request->session()->now('danger', 'Existem dados incorretos! Por favor verifique!');
                 return view('admin.servant_completary_data.edit', [
                     'completaryData' => $completaryData,
                     'contract' => $contract,

@@ -63,7 +63,7 @@ class MovementController extends AppController
         $movement = new Movement($data);
 
         if ($validator->fails()) {
-            $request->session()->flash('danger', 'Existem dados incorretos! Por favor verifique!');
+            $request->session()->now('danger', 'Existem dados incorretos! Por favor verifique!');
             return view('admin.servant_completary_data.movements.new', [
                 'movement' => $movement,
                 'units' => Unit::all(),
@@ -129,7 +129,7 @@ class MovementController extends AppController
         $movement->fill($data);
 
         if ($validator->fails()) {
-                $request->session()->flash('danger', 'Existem dados incorretos! Por favor verifique!');
+                $request->session()->now('danger', 'Existem dados incorretos! Por favor verifique!');
                 return view('admin.servant_completary_data.movements.edit', [
                     'completaryData' => $completaryData,
                     'units' => Unit::all(),

@@ -47,7 +47,7 @@ class UnitCategoriesController extends AppController
 
         $category = new UnitCategory($data);
         if ($validator->fails()) {
-            $request->session()->flash('danger', 'Existem dados incorretos! Por favor verifique!');
+            $request->session()->now('danger', 'Existem dados incorretos! Por favor verifique!');
             return view('admin.unit_categories.new', compact('category'))->withErrors($validator);
         }
 
@@ -86,7 +86,7 @@ class UnitCategoriesController extends AppController
 
         $category->fill($data);
         if ($validator->fails()) {
-            $request->session()->flash('danger', 'Existem dados incorretos! Por favor verifique!');
+            $request->session()->now('danger', 'Existem dados incorretos! Por favor verifique!');
             return view('admin.unit_categories.edit', compact('category'))->withErrors($validator);
         }
 

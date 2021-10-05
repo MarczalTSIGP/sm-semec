@@ -50,7 +50,7 @@ class UsersController extends AppController
         ]);
 
         if ($validator->fails()) {
-            $request->session()->flash('danger', 'Existem dados incorretos! Por favor verifique!');
+            $request->session()->now('danger', 'Existem dados incorretos! Por favor verifique!');
             return view('admin.users.new', compact('user'))->withErrors($validator);
         }
 
@@ -103,7 +103,7 @@ class UsersController extends AppController
 
         $user->fill($data);
         if ($validator->fails()) {
-            $request->session()->flash('danger', 'Existem dados incorretos! Por favor verifique!');
+            $request->session()->now('danger', 'Existem dados incorretos! Por favor verifique!');
             return view('admin.users.edit', compact('user'))->withErrors($validator);
         }
 

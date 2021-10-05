@@ -44,7 +44,7 @@ class ProfileController extends AppController
 
         $user->fill($data);
         if ($validator->fails()) {
-            $request->session()->flash('danger', 'Existem dados incorretos! Por favor verifique!');
+            $request->session()->now('danger', 'Existem dados incorretos! Por favor verifique!');
             return view('admin.profile.edit', compact('user'))->withErrors($validator);
         }
 
