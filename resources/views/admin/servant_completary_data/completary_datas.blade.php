@@ -17,7 +17,7 @@
 
     @isset($completaryData)
       <span class="span-field-effect ">Formação Acadêmica</span>
-      <p class="p-field-effect">{{$completaryData->formation}}</p>
+      <p class="p-field-effect">{{$completaryData->formation->formation_name}}</p>
 
       <span class="span-field-effect ">Carga Horária</span>
       <p class="p-field-effect">{{$completaryData->workload->hours}}</p>

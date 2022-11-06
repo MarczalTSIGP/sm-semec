@@ -10,6 +10,7 @@ use App\Models\Contract;
 use App\Models\Workload;
 use App\Models\Servant;
 use App\Models\Movement;
+use App\Models\Formation;
 
 class ServantCompletaryDataController extends AppController
 {
@@ -60,11 +61,13 @@ class ServantCompletaryDataController extends AppController
         $contract = $servant->contracts->find($id);
         $completaryData = new ServantCompletaryData();
         $workloads = Workload::all();
+        $formations = Formation::all();
 
         return view('admin.servant_completary_data.new', [
             'completaryData' => $completaryData,
             'contract' => $contract,
-            'workloads' => $workloads]);
+            'workloads' => $workloads,
+            'formations' => $formations]);
     }
 
     /**
@@ -79,7 +82,7 @@ class ServantCompletaryDataController extends AppController
     {
         $data = $request->all();
         $validator = Validator::make($data, [
-            'formation'   => 'required',
+            'formation_id'   => 'required',
             'workload_id' => 'required',
         ]);
 
@@ -119,6 +122,7 @@ class ServantCompletaryDataController extends AppController
         return view('admin.servant_completary_data.edit', [
             'completaryData' => $completaryData,
             'workloads' => Workload::all(),
+            'formations' => Formation::all(),
             'contract' => $contract,
         ]);
     }
@@ -142,7 +146,7 @@ class ServantCompletaryDataController extends AppController
         $data = $request->all();
 
         $validator = Validator::make($data, [
-        'formation' => "required",
+        'formation_id' => "required",
         'workload_id' => "required",
         ]);
 

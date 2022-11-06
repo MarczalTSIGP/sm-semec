@@ -3,12 +3,12 @@
 namespace Database\Factories;
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
-use App\Models\Edict;
+use App\Models\Formation;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 use Faker\Generator as Faker;
 
-class EdictFactory extends Factory
+class FormationFactory extends Factory
 {
 
     /**
@@ -16,7 +16,7 @@ class EdictFactory extends Factory
     *
     * @var string
     */
-    protected $model = Edict::class;
+    protected $model = Formation::class;
 
     /**
     * Define the model's default state.
@@ -27,11 +27,8 @@ class EdictFactory extends Factory
     public function definition()
     {
         return [
-            'title' => $this->faker->name(),
-            'description' => $this->faker->text(),
-            'number_vacancies' => $this->faker->numberBetween(1, 50),
-            'started_at' => $this->faker->dateTimeBetween('now', '+01 days'),
-            'ended_at' => $this->faker->dateTimeBetween('+02 days', '+04 days')
+            'formation_name' => $this->faker->name(),
+            'score_formation' => $this->faker->numberBetween(1, 50),
         ];
     }
 }

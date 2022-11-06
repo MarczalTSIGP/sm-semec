@@ -3,6 +3,9 @@
   <td>{{ $edict->started_at->toShortDateTime() }}</td>
   <td>{{ $edict->ended_at->toShortDateTime() }}  </td>
   <td >
+  <span class="icon mr-1">
+        <a href="{{ route('admin.classifications')}}"><i class="fa-solid fa-ranking-star"></i></a>
+    </span>
     <span class="icon mr-1">
       <a href="{{ route('admin.inscriptions', $edict->id) }}" data-toggle="tooltip" data-placement="top" title="Inscrições"><i class="fas fa-align-left"></i></a>
     </span>

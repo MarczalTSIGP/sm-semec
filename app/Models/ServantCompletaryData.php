@@ -15,7 +15,7 @@ class ServantCompletaryData extends Model
     */
     protected $fillable = [
         'observation',
-        'formation',
+        'formation_id',
         'contract_id',
         'workload_id',
     ];
@@ -26,6 +26,11 @@ class ServantCompletaryData extends Model
     public function contract()
     {
         return $this->belongsTo(Contract::class, 'contract_id');
+    }
+
+    public function formation()
+    {
+        return $this->belongsTo(Formation::class, 'formation_id');
     }
 
     /**

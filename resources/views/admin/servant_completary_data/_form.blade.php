@@ -2,10 +2,14 @@
     @csrf
     @method($method)
 
-    @component('components.form.input_text', ['field'    => 'formation',
+    @component('components.form.input_select', ['field'    => 'formation_id',
                                               'label'    => 'Formação Acadêmica',
                                               'model'    => 'servantCompletaryData',
-                                              'value'    => $completaryData->formation,
+                                              'value'    => $completaryData->formation_id,
+                                              'options'  => $formations,
+                                              'default'  => 'Selecione uma formação',
+                                              'value_method' => 'id',
+                                              'label_method' => 'formation_name',
                                               'required' => true,
                                               'errors'   => $errors]) @endcomponent
 

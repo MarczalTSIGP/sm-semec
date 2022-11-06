@@ -8,14 +8,15 @@
     ],
     "license": "MIT",
     "require": {
-        "php": "^7.4",
+        "php": "^7.3|^8.0",
         "davejamesmiller/laravel-breadcrumbs": "5.x",
         "fideloper/proxy": "^4.0",
         "laravel/framework": "^8.0",
         "laravel/tinker": "^2.0",
         "laravel/ui": "^3.0",
         "lucascudo/laravel-pt-br-localization": "^1.0",
-        "nesbot/carbon": "^2.25"
+        "nesbot/carbon": "^2.25",
+        "doctrine/dbal": "v2.4.2"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.2",

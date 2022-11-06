@@ -5,6 +5,7 @@ namespace Database\Factories;
 use App\Models\ServantCompletaryData;
 use App\Models\Contract;
 use App\Models\Workload;
+use App\Models\Formation;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 use Faker\Generator as Faker;
@@ -26,9 +27,9 @@ class ServantCompletaryDataFactory extends Factory
     public function definition()
     {
         return [
-            'formation'  => $this->faker->title(),
+            'formation_id'  => Formation::factory(),
             'observation' => $this->faker->text(),
-            'contract_id' => Contract::factory(),
+            'contract_id' => $this->faker->unique()->numberBetween(1, Contract::count()),
             'workload_id'  => Workload::factory(),
         ];
     }

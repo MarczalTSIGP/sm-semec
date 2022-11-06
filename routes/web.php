@@ -120,10 +120,14 @@ Route::namespace('Admin')->group(function () {
 	|-------------------------------------------------------------------------- */
 	Route::get('/servants/{servant_id}/contracts/{contract_id}/completary-datas/{id}/movement/new',                      ['as' => 'admin.new.movement',     'uses' => 'MovementController@new']);
 	Route::post('/servants/{servant_id}/contracts/{contract_id}/completary-datas/{id}/movement/new',                     ['as' => 'admin.create.movement',  'uses' => 'MovementController@create']);
-        Route::get('/servants/{servant_id}/contracts/{contract_id}/completary-datas/{completaryData_id}/movement/{id}/edit', ['as' => 'admin.edit.movement',    'uses' => 'MovementController@edit']);
+    Route::get('/servants/{servant_id}/contracts/{contract_id}/completary-datas/{completaryData_id}/movement/{id}/edit', ['as' => 'admin.edit.movement',    'uses' => 'MovementController@edit']);
 	Route::patch('/servants/{servant_id}/contracts/{contract_id}/completary-datas/{completaryData_id}/movement/{id}',    ['as' => 'admin.update.movement',  'uses' => 'MovementController@update']);
 	Route::delete('/servants/{servant_id}/contracts/{contract_id}/completary_datas/{completaryData_id}/movement/{id}',   ['as' => 'admin.destroy.movement', 'uses' => 'MovementController@destroy']);
     });
+
+	    /* Classifications resources
+	|----------------------------------------------------------------------------*/
+	Route::get('/classifications', 			       ['as' => 'admin.classifications',        'uses' => 'ClassificationsController@index']);
 });
 
 /*----------SERVANT AREA----------	*/

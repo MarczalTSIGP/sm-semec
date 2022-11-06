@@ -67,6 +67,10 @@ Breadcrumbs::for('admin.create.user', function ($trail) {
     $trail->push('Novo Administrador', route('admin.create.user'));
 });
 
+Breadcrumbs::for('admin.classifications', function ($trail) {
+    $trail->push('Classificação', route('admin.classifications'));
+});
+
 /* Servants resources
 |-------------------------------------------------------------------------- */
 Breadcrumbs::for('admin.servants', function ($trail) {

@@ -42,10 +42,11 @@ class EdictsController extends AppController
         $data = $request->all();
 
         $validator = Validator::make($data, [
-            'title'       => 'required',
-            'description' => 'required',
-            'started_at'  => 'required|date_format:d/m/Y H:i',
-            'ended_at'    => 'required|date_format:d/m/Y H:i|after_or_equal:started_at'
+            'title'            => 'required',
+            'description'      => 'required',
+            'started_at'       => 'required|date_format:d/m/Y H:i',
+            'ended_at'         => 'required|date_format:d/m/Y H:i|after_or_equal:started_at',
+            'number_vacancies' => 'required|integer'
         ]);
 
         $this->filterDateTimeFormat($data, ['started_at', 'ended_at']);

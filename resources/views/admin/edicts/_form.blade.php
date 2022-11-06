@@ -32,6 +32,13 @@
                                               'required' => true,
                                               'errors'   => $errors]) @endcomponent
 
+    @component('components.form.input_text', ['field'    => 'number_vacancies',
+                                              'label'    => 'Número de vagas',
+                                              'model'    => 'edict',
+                                              'value'    => $edict->number_vacancies,
+                                              'required' => true,
+                                              'errors'   => $errors]) @endcomponent                                          
+
     @component('components.form.input_submit',['value' => $submit, 'back_url' => route('admin.edicts')]) @endcomponent
 
 </form>

@@ -67,4 +67,12 @@ class Inscription extends Model
     {
         return $this->belongsToMany(Unit::class, 'inscription_units', 'inscription_id', 'unit_id');
     }
+
+    /**
+    * @return \Illuminate\Database\Eloquent\Relations\HasMany
+    */
+    public function classifications()
+    {
+        return $this->hasMany(Classification::class, 'inscription_id');
+    }
 }

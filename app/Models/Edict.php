@@ -20,6 +20,7 @@ class Edict extends Model
         'description',
         'started_at',
         'ended_at',
+        'number_vacancies',
     ];
 
     protected $dates = [
@@ -41,6 +42,14 @@ class Edict extends Model
     public function inscriptions()
     {
         return $this->hasMany(Inscription::class, 'edict_id');
+    }
+
+    /**
+    * @return \Illuminate\Database\Eloquent\Relations\HasMany
+    */
+    public function classifications()
+    {
+        return $this->hasMany(Classification::class, 'edict_id');
     }
 
     /**
