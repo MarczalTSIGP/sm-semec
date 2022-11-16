@@ -16,11 +16,7 @@ class RenameFieldFormationFromServantCompletaryDatasTable extends Migration
         Schema::table('servant_completary_datas', function (Blueprint $table) {
           
             $table->renameColumn('formation', 'formation_id');
-       //     $table->unsignedBigInteger('formation_id')->change();
-       //     $table->foreign('formation_id')
-       //     ->references('id')
-       //     ->on('formations')
-       //     ->onDelete('cascade');
+    
 
         });
     }
@@ -33,10 +29,8 @@ class RenameFieldFormationFromServantCompletaryDatasTable extends Migration
     public function down()
     {
         Schema::table('servant_completary_datas', function (Blueprint $table) {
-         //  $table->dropForeign('servant_completary_datas_formation_id_foreign');
            $table->renameColumn('formation_id', 'formation');
-       //    $table->string('formation')->change();
-        });
+                });
             
     }
 }

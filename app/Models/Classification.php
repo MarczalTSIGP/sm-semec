@@ -48,5 +48,6 @@ class Classification extends Model
     {
         return $this->belongsTo(Edict::class, 'edict_id');
     }
+    
 
 }
