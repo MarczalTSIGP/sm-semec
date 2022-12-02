@@ -11,7 +11,6 @@ use App\Models\Workload;
 
 class UpdateTest extends DuskTestCase
 {
-
     /** @var \App\Models\User */
     protected $user;
 

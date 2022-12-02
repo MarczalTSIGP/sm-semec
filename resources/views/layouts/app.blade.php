@@ -12,7 +12,7 @@
     <title>@include('shared/_full_title')</title>
 
     <!--Icons-->
-    <script src="https://kit.fontawesome.com/826671e166.js" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/530ab6e84d.js" crossorigin="anonymous"></script>
     <!-- Scripts -->
     <script src="{{ asset(mix('/assets/js/app.js')) }}" defer></script>
 

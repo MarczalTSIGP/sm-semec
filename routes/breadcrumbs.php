@@ -67,10 +67,6 @@ Breadcrumbs::for('admin.create.user', function ($trail) {
     $trail->push('Novo Administrador', route('admin.create.user'));
 });
 
-Breadcrumbs::for('admin.classifications', function ($trail) {
-    $trail->push('Classificação', route('admin.classifications'));
-});
-
 /* Servants resources
 |-------------------------------------------------------------------------- */
 Breadcrumbs::for('admin.servants', function ($trail) {
@@ -144,6 +140,22 @@ Breadcrumbs::for('admin.search.edicts.page', function ($trail) {
     $trail->parent('admin.dashboard');
     $trail->push('Editais', route('admin.edicts'));
 });
+
+Breadcrumbs::for('admin.classifications', function ($trail, $id) {
+    $trail->parent('admin.edicts');
+    $trail->push('Classificação do Edital #'. $id, route('admin.classifications', $id));
+});
+
+Breadcrumbs::for('admin.update.classifications', function ($trail, $id) {
+    $trail->parent('admin.edicts');
+    $trail->push('Atualizar Classificação', route('admin.update.classifications', $id));
+});
+
+Breadcrumbs::for('admin.new.vacant_unit', function ($trail, $id) {
+    $trail->parent('admin.edicts');
+    $trail->push('Cadastro de vagas por unidade Edital #'.$id, route('admin.new.vacant_unit', $id));
+});
+
 
 /* Pdfs Edict
 |-------------------------------------------------------------------------- */

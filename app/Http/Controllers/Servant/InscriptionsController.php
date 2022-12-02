@@ -76,11 +76,10 @@ class InscriptionsController extends AppController
             'interested_unit_ids' => 'required',
             'reason'              => 'required',
         ]);
-     
+
         $contract = Contract::find($data['contract_id']);
-      
-        if($contract->servantCompletaryData == null)
-        {
+
+        if ($contract->servantCompletaryData == null) {
             $request->session()->now('danger', 'É necessário um cadastro complementar em seu contrato.');
             return $this->new();
         }
@@ -108,7 +107,7 @@ class InscriptionsController extends AppController
 
         $this->edict->inscriptions()->save($inscription);
         $inscription->interestedUnits()->attach($request->interested_unit_ids);
-       
+
         $classfication = [
             'inscription_id' => $inscription->id,
             'edict_id'       => $this->edict->id,

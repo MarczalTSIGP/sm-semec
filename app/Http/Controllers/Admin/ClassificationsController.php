@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Support\Facades\Validator;
 use App\Models\Classification;
+use App\Models\Inscription;
+use App\Models\EdictUnit;
+use App\Models\Unit;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Admin\AppController;
 use App\Services\ClassificationService;
@@ -15,12 +18,18 @@ class ClassificationsController extends AppController
      *
      * @return \Illuminate\View\View
      */
-    public function index()
+    public function index($edict)
     {
-      
-        $classifications = Classification::orderBy('rank', 'asc')->get();
-         
-        return view('admin.classifications.index', ['classifications' => $classifications]);
+        $classifications = Classification::where('edict_id', $edict)->orderBy('rank', 'asc')->get();
+        $classificationOccupiedVacancyFalse = $classifications->where('occupied_vacancy', false);
+        $classificationOccupiedVacancyTrue = $classifications->where('occupied_vacancy', true);
+        $edictUnits = $this->mountedArray($edict);
+
+        return view('admin.classifications.index', [
+                                                        'classificationOccupiedVacancyFalse' => $classificationOccupiedVacancyFalse,
+                                                        'classificationOccupiedVacancyTrue' => $classificationOccupiedVacancyTrue,
+                                                        'edictUnits' => $edictUnits,
+                                                    ]);
     }
 
     /**
@@ -34,9 +43,7 @@ class ClassificationsController extends AppController
 
         $data['worked_days'] = $classificationService->calculateDaysWorked($inscription);
         $data['formation_points'] = $classificationService->calculateFormationScore($inscription);
-        $data['worked_days_unit'] =  $classificationService->calculateDaysWorkedInUnit($inscription);;
-
-        $classificationService->calculateRank();
+        $data['worked_days_unit'] =  $classificationService->calculateDaysWorkedInUnit($inscription);
 
         $validator = Validator::make($data, [
             'inscription_id' => 'required|exists:inscriptions,id',
@@ -44,15 +51,48 @@ class ClassificationsController extends AppController
             'worked_days'    => 'required|integer',
             'formation_points' => 'required|integer',
             'worked_days_unit' => 'required|integer',
-              
-      ]);
+        ]);
 
         $classification = new Classification($data);
-
         $classification->save();
-        
         $classificationService->calculateRank();
     }
 
+    public function updateVacancyOccupation($id)
+    {
+        $classification =  Classification::find($id);
+        $classificationService = new ClassificationService();
+        $inscription = Inscription::find($classification->inscription_id);
 
+        $classificationService->decreaseVacancyInUnitOfInterest($inscription);
+        $classificationService->increaseVacancyInTheUnit($inscription);
+        $classification->occupied_vacancy = true;
+        $classification->save();
+        $classificationService->calculateRank();
+
+        return $this->index($classification->edict_id);
+    }
+
+    public function mountedArray($edict)
+    {
+        $edictUnits = EdictUnit::where('edict_id', $edict)->get();
+        $classificationService = new ClassificationService();
+
+        $listEdictUnits = [];
+        foreach ($edictUnits as $edictUnit) {
+            $countServants = $classificationService->countServants($edictUnit->servants_id);
+            $unit = Unit::find($edictUnit->unit_id);
+            $unitVancancies = new \stdClass();
+            $unitVancancies->unit_name = $unit->name;
+
+            if (is_null($countServants)) {
+                $unitVancancies->vacancies = $edictUnit->number_vacancies;
+            } else {
+                $unitVancancies->vacancies = $edictUnit->number_vacancies - $countServants;
+            }
+            $unitVancancies->type_of_vacancy = $edictUnit->type_of_vacancy;
+            array_push($listEdictUnits, $unitVancancies);
+        }
+        return $listEdictUnits;
+    }
 }

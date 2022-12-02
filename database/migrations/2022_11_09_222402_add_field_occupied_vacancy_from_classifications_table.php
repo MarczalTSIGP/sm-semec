@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddColumnVacanciesFromEdictsTable extends Migration
+class AddFieldOccupiedVacancyFromClassificationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AddColumnVacanciesFromEdictsTable extends Migration
      */
     public function up()
     {
-        Schema::table('edicts', function (Blueprint $table) {
-            $table->integer('number_vacancies');
+        Schema::table('classifications', function (Blueprint $table) {
+            $table->boolean('occupied_vacancy')->default(0);
         });
     }
 
@@ -25,8 +25,8 @@ class AddColumnVacanciesFromEdictsTable extends Migration
      */
     public function down()
     {
-        Schema::table('edicts', function (Blueprint $table) {
-            $table->dropColumn('number_vacancies');
+        Schema::table('classifications', function (Blueprint $table) {
+            $table->dropColumn('occupied_vacancy');
         });
     }
 }

@@ -15,8 +15,8 @@ class Formation extends Model
     protected $fillable = [
         'formation_name',
         'score_formation',
-    ];  
-    
+    ];
+
     public function servantCompletaryData()
     {
         return $this->hasOne(ServantCompletaryData::class);

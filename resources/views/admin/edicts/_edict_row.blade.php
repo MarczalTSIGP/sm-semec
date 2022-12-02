@@ -3,8 +3,14 @@
   <td>{{ $edict->started_at->toShortDateTime() }}</td>
   <td>{{ $edict->ended_at->toShortDateTime() }}  </td>
   <td >
+  @if($edict->ended_at >=  Carbon\Carbon::today())
+    <span class="icon mr-1">
+        <a href="{{ route('admin.new.vacant_unit', $edict->id)}}" title="Cadastrar vagas por unidade"><i class="fa-solid fa-arrow-up-9-1"></i></a>
+    </span>
+  @endif
+
   <span class="icon mr-1">
-        <a href="{{ route('admin.classifications')}}"><i class="fa-solid fa-ranking-star"></i></a>
+        <a href="{{ route('admin.classifications', $edict->id)}}" title="Classificação"><i class="fa-solid fa-ranking-star"></i></a>
     </span>
     <span class="icon mr-1">
       <a href="{{ route('admin.inscriptions', $edict->id) }}" data-toggle="tooltip" data-placement="top" title="Inscrições"><i class="fas fa-align-left"></i></a>

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Classification extends Model
 {
     use HasFactory;
-    
+
     /**
     * The name of the factory's corresponding model.
     *
@@ -48,6 +48,4 @@ class Classification extends Model
     {
         return $this->belongsTo(Edict::class, 'edict_id');
     }
-    
-
 }

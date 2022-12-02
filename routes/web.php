@@ -66,6 +66,8 @@ Route::namespace('Admin')->group(function () {
 	Route::get('/edicts/{id}/edit', 	['as' => 'admin.edit.edict',    'uses' => 'EdictsController@edit']);
 	Route::patch('/edicts/{id}',		['as' => 'admin.update.edict',  'uses' => 'EdictsController@update']);
 	Route::delete('/edicts/{id}', 		['as' => 'admin.destroy.edict', 'uses' => 'EdictsController@destroy']);
+	Route::get('/edicts/vacancies-per-unit/{edict}', ['as' => 'admin.new.vacant_unit', 'uses' => 'EdictsController@newAddVacanciesInUnits']);
+	Route::post('/edicts/vacancies-per-unit/{edict}', ['as' => 'admin.create.vacant_unit', 'uses' => 'EdictsController@createVancanciesInUnit']);
 
 	/* Pdfs resources
 	|-------------------------------------------------------------------------- */
@@ -127,7 +129,8 @@ Route::namespace('Admin')->group(function () {
 
 	    /* Classifications resources
 	|----------------------------------------------------------------------------*/
-	Route::get('/classifications', 			       ['as' => 'admin.classifications',        'uses' => 'ClassificationsController@index']);
+	Route::get('/edicts/{id}/classifications', 			       ['as' => 'admin.classifications',        'uses' => 'ClassificationsController@index']);
+	Route::post('/edicts/{id}/classifications/update', 			       ['as' => 'admin.update.classifications',        'uses' => 'ClassificationsController@updateVacancyOccupation']);
 });
 
 /*----------SERVANT AREA----------	*/

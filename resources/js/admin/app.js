@@ -7,3 +7,4 @@ require('../../config/js/datetimepicker');
 require('../../config/js/selectize');
 require('../../lib/pdf_preview/js/pdf_preview');
 require('../../config/js/jmask');
+require('../../config/js/addInput');

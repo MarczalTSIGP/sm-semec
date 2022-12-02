@@ -16,9 +16,8 @@ class FormationsController extends AppController
      */
     public function index()
     {
-      
+
         $formations = Formation::all();
-         
         return $formations;
     }
 

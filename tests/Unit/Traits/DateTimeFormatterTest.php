@@ -8,7 +8,6 @@ use App\Models\Edict;
 
 class DateTimeFormatterTest extends TestCase
 {
-
     public function testFormat(): void
     {
         $user = Edict::factory()->make();

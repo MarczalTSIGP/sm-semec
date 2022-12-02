@@ -4,8 +4,11 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Support\Facades\Validator;
 use App\Models\Edict;
+use App\Models\Unit;
+use App\Models\EdictUnit;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Admin\AppController;
+use App\Http\Controllers\Admin\ClassificationsController;
 
 class EdictsController extends AppController
 {
@@ -29,7 +32,8 @@ class EdictsController extends AppController
     public function new()
     {
         $edict = new Edict();
-        return view('admin.edicts.new', compact('edict'));
+        $units = Unit::all();
+        return view('admin.edicts.new', compact('edict', 'units'));
     }
 
     /**
@@ -46,7 +50,6 @@ class EdictsController extends AppController
             'description'      => 'required',
             'started_at'       => 'required|date_format:d/m/Y H:i',
             'ended_at'         => 'required|date_format:d/m/Y H:i|after_or_equal:started_at',
-            'number_vacancies' => 'required|integer'
         ]);
 
         $this->filterDateTimeFormat($data, ['started_at', 'ended_at']);
@@ -57,7 +60,7 @@ class EdictsController extends AppController
         }
 
         $edict->save();
-        return redirect()->route('admin.edicts')->with('success', 'Edital cadastrado com sucesso');
+        return redirect()->route('admin.new.vacant_unit', ['edict' => $edict])->with('success', 'Edital criado com sucesso');
     }
 
     /**
@@ -111,7 +114,7 @@ class EdictsController extends AppController
         }
 
         $edict->save();
-        return redirect()->route('admin.edicts')->with('success', 'Edital atualizado com sucesso');
+        return redirect()->route('admin.new.vacant_unit', ['edict' => $edict])->with('success', 'Edital atualizado com sucesso');
     }
 
     /**
@@ -126,5 +129,44 @@ class EdictsController extends AppController
         $edict = Edict::find($id);
         $edict->delete();
         return redirect()->route('admin.edicts')->with('success', 'Edital removido com sucesso.');
+    }
+
+    public function newAddVacanciesInUnits($id)
+    {
+
+        $edict =  Edict::find($id);
+        $units = Unit::orderBy('name', 'ASC')->get();
+        $classificationController = new ClassificationsController();
+        $edictUnits = $classificationController->mountedArray($edict->id);
+        return view('admin.edicts.edicts_units.new', [
+            'edict' => $edict,
+            'units' => $units,
+            'edictUnits' => $edictUnits,
+        ]);
+    }
+
+    public function createVancanciesInUnit(Request $request, $edict)
+    {
+        $data = $request->all();
+        $data['edict_id'] = $edict;
+
+        $validator = Validator::make($data, [
+            'edict_id'       => 'required|exists:edicts,id',
+            'unit_id' => 'required|exists:units,id',
+            'number_vacancies'  => 'required|integer',
+
+        ]);
+
+        $edictUnit = EdictUnit::where('edict_id', $data['edict_id'])
+                              ->where('unit_id', $data['unit_id'])
+                              ->where('type_of_vacancy', 'registered')
+                              ->first();
+        if ($edictUnit) {
+            $edictUnit->number_vacancies = $data['number_vacancies'];
+            $edictUnit->update();
+        } else {
+            EdictUnit::create(['edict_id' => $data['edict_id'], 'unit_id' => $data['unit_id'], 'number_vacancies' => $data['number_vacancies'], 'type_of_vacancy' => 'registered']);
+            return redirect()->route('admin.new.vacant_unit', ['edict' => $edict])->with('success', 'Vagas cadastradas com sucesso');
+        }
     }
 }

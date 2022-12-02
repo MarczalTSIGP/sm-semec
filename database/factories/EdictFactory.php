@@ -29,7 +29,6 @@ class EdictFactory extends Factory
         return [
             'title' => $this->faker->name(),
             'description' => $this->faker->text(),
-            'number_vacancies' => $this->faker->numberBetween(1, 50),
             'started_at' => $this->faker->dateTimeBetween('now', '+01 days'),
             'ended_at' => $this->faker->dateTimeBetween('+02 days', '+04 days')
         ];
