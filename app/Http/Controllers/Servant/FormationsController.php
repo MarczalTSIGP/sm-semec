@@ -28,13 +28,6 @@ class FormationsController extends AppController
      */
     public function create($data)
     {
-
-        $validator = Validator::make($data, [
-            'formation_name' => 'required|string',
-            'edict_id'       => 'required|exists:edicts,id',
-        ]);
-
-
         $formation = new Formation($data);
 
         $formation->save();

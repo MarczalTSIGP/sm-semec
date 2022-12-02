@@ -40,8 +40,6 @@ class ClassificationService
                 $started = $movement->started_at;
                 $diffDates +=  $started->diffInDays($movement->ended_at);
             }
-        } else {
-                return $diffDates;
         }
         return $diffDates;
     }
@@ -74,14 +72,14 @@ class ClassificationService
                 if ($edictUnit->number_vacancies > 0) {
                     if (is_null($edictUnit->servants_id)) {
                         $edictUnit->servants_id = $inscription->contract->servant_id;
-                    } else {
+                    }
                         $count = $this->countServants($edictUnit->servants_id);
 
-                        if ($edictUnit->number_vacancies != $count) {
+                    if ($edictUnit->number_vacancies != $count) {
                             $edictUnit->servants_id = $edictUnit->servants_id . ","
                             . $inscription->contract->servant_id;
-                        }
                     }
+
                     $edictUnit->update();
                     return;
                 }
@@ -96,10 +94,9 @@ class ClassificationService
 
         if (is_null($servantsId)) {
             $countServant = 0;
-        } else {
+        }
             $servants = explode(',', $servantsId);
             $countServant = count($servants);
-        }
         return $countServant;
     }
 
@@ -113,15 +110,15 @@ class ClassificationService
         if ($edictUnit) {
             $edictUnit->number_vacancies = $edictUnit->number_vacancies + 1;
             $edictUnit->update();
-        } else {
-            EdictUnit::create([
+            return redirect()->route('admin.new.vacant_unit', ['edict' => $inscription->edict])
+            ->with('success', 'Vagas cadastradas com sucesso');
+        }
+        EdictUnit::create([
                         'edict_id' => $inscription->edict_id,
                         'unit_id' => $inscription->current_unit_id,
                         'number_vacancies' => '1',
                         'type_of_vacancy' => 'released']);
-            return redirect()->route('admin.new.vacant_unit', ['edict' => $inscription->edict])->with('success', 'Vagas cadastradas com sucesso');
-        }
-
-        return;
+        return redirect()->route('admin.new.vacant_unit', ['edict' => $inscription->edict])
+                            ->with('success', 'Vagas cadastradas com sucesso');
     }
 }

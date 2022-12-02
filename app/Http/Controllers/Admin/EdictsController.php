@@ -60,7 +60,8 @@ class EdictsController extends AppController
         }
 
         $edict->save();
-        return redirect()->route('admin.new.vacant_unit', ['edict' => $edict])->with('success', 'Edital criado com sucesso');
+        return redirect()->route('admin.new.vacant_unit', ['edict' => $edict])
+                        ->with('success', 'Edital criado com sucesso');
     }
 
     /**
@@ -114,7 +115,8 @@ class EdictsController extends AppController
         }
 
         $edict->save();
-        return redirect()->route('admin.new.vacant_unit', ['edict' => $edict])->with('success', 'Edital atualizado com sucesso');
+        return redirect()->route('admin.new.vacant_unit', ['edict' => $edict])
+                        ->with('success', 'Edital atualizado com sucesso');
     }
 
     /**
@@ -161,12 +163,23 @@ class EdictsController extends AppController
                               ->where('unit_id', $data['unit_id'])
                               ->where('type_of_vacancy', 'registered')
                               ->first();
+        if ($validator->fails()) {
+            $request->session()->now('danger', 'Existem dados incorretos! Por favor verifique!');
+            return view('admin.edicts_units.new', compact('edictUnit'))->withErrors($validator);
+        }
         if ($edictUnit) {
             $edictUnit->number_vacancies = $data['number_vacancies'];
             $edictUnit->update();
-        } else {
-            EdictUnit::create(['edict_id' => $data['edict_id'], 'unit_id' => $data['unit_id'], 'number_vacancies' => $data['number_vacancies'], 'type_of_vacancy' => 'registered']);
-            return redirect()->route('admin.new.vacant_unit', ['edict' => $edict])->with('success', 'Vagas cadastradas com sucesso');
+            return redirect()->route('admin.new.vacant_unit', ['edict' => $edict])
+            ->with('success', 'Vagas cadastradas com sucesso');
         }
+        EdictUnit::create([
+                'edict_id' => $data['edict_id'],
+                'unit_id' => $data['unit_id'],
+                'number_vacancies' => $data['number_vacancies'],
+                'type_of_vacancy' => 'registered']);
+
+        return redirect()->route('admin.new.vacant_unit', ['edict' => $edict])
+        ->with('success', 'Vagas cadastradas com sucesso');
     }
 }

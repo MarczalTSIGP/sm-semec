@@ -26,9 +26,11 @@ class ClassificationsController extends AppController
         $edictUnits = $this->mountedArray($edict);
 
         return view('admin.classifications.index', [
-                                                        'classificationOccupiedVacancyFalse' => $classificationOccupiedVacancyFalse,
-                                                        'classificationOccupiedVacancyTrue' => $classificationOccupiedVacancyTrue,
-                                                        'edictUnits' => $edictUnits,
+                                                    'classificationOccupiedVacancyFalse' =>
+                                                    $classificationOccupiedVacancyFalse,
+                                                    'classificationOccupiedVacancyTrue' =>
+                                                    $classificationOccupiedVacancyTrue,
+                                                    'edictUnits' => $edictUnits,
                                                     ]);
     }
 
@@ -44,14 +46,6 @@ class ClassificationsController extends AppController
         $data['worked_days'] = $classificationService->calculateDaysWorked($inscription);
         $data['formation_points'] = $classificationService->calculateFormationScore($inscription);
         $data['worked_days_unit'] =  $classificationService->calculateDaysWorkedInUnit($inscription);
-
-        $validator = Validator::make($data, [
-            'inscription_id' => 'required|exists:inscriptions,id',
-            'edict_id'       => 'required|exists:edicts,id',
-            'worked_days'    => 'required|integer',
-            'formation_points' => 'required|integer',
-            'worked_days_unit' => 'required|integer',
-        ]);
 
         $classification = new Classification($data);
         $classification->save();
@@ -82,14 +76,11 @@ class ClassificationsController extends AppController
         foreach ($edictUnits as $edictUnit) {
             $countServants = $classificationService->countServants($edictUnit->servants_id);
             $unit = Unit::find($edictUnit->unit_id);
-            $unitVancancies = new \stdClass();
+            $unitVancancies = new stdClass();
             $unitVancancies->unit_name = $unit->name;
 
-            if (is_null($countServants)) {
-                $unitVancancies->vacancies = $edictUnit->number_vacancies;
-            } else {
-                $unitVancancies->vacancies = $edictUnit->number_vacancies - $countServants;
-            }
+            $unitVancancies->vacancies = $edictUnit->number_vacancies - $countServants;
+
             $unitVancancies->type_of_vacancy = $edictUnit->type_of_vacancy;
             array_push($listEdictUnits, $unitVancancies);
         }
