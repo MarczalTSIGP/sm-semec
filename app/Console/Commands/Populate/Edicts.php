@@ -38,7 +38,7 @@ class Edicts extends Command
      *
      * @return mixed
      */
-    public function handle()
+    /*public function handle()
     {
         if (\App::environment('production')) {
             $this->info('This task can not be run in production because it will erase de database');
@@ -64,5 +64,5 @@ class Edicts extends Command
             $edict->pdfs()->save(Pdf::factory()->make(['edict_id' => $edict->id]));
             $edict->pdfs()->save(Pdf::factory()->make(['edict_id' => $edict->id]));
         }
-    }
+    }*/
 }

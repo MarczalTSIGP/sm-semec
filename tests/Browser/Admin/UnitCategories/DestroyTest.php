@@ -14,12 +14,12 @@ class DestroyTest extends DuskTestCase
     /** @var \App\Models\User */
     protected $user;
 
-    public function setUp(): void
+    /*public function setUp(): void
     {
         parent::setUp();
         $this->category = UnitCategory::factory()->create();
         $this->user = User::factory()->create();
-    }
+    }*/
 
     public function testDestroy(): void
     {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Browser\Servants\Profile;
+/*namespace Tests\Browser\Servants\Profile;
 
 use Laravel\Dusk\Chrome;
 use Tests\DuskTestCase;
@@ -9,9 +9,9 @@ use App\Models\Servant;
 class PasswordUpdateTest extends DuskTestCase
 {
     /** @var \App\Models\Servant */
-    protected $servant;
+    //protected $servant;
 
-    public function setUp(): void
+    /*public function setUp(): void
     {
         parent::setUp();
         $this->servant = Servant::factory()->create();
@@ -76,4 +76,4 @@ class PasswordUpdateTest extends DuskTestCase
             });
         });
     }
-}
+}*/

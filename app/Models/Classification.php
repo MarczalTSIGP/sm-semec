@@ -19,9 +19,6 @@ class Classification extends Model
     /**
      * @var array
      */
-
-    public $timestamps = false;
-
     protected $fillable = [
         'rank',
         'worked_days',

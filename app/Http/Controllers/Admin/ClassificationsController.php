@@ -7,9 +7,11 @@ use App\Models\Classification;
 use App\Models\Inscription;
 use App\Models\EdictUnit;
 use App\Models\Unit;
+use App\Models\Edict;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Admin\AppController;
 use App\Services\ClassificationService;
+use stdClass;
 
 class ClassificationsController extends AppController
 {
@@ -18,7 +20,7 @@ class ClassificationsController extends AppController
      *
      * @return \Illuminate\View\View
      */
-    public function index($edict)
+    public function index(int $edict)
     {
         $classifications = Classification::where('edict_id', $edict)->orderBy('rank', 'asc')->get();
         $classificationOccupiedVacancyFalse = $classifications->where('occupied_vacancy', false);
@@ -35,11 +37,9 @@ class ClassificationsController extends AppController
     }
 
     /**
-     * Store a newly created resource in storage.
-     * @param  \Illuminate\Http\Request  $request
-     * @return  \Illuminate\View\View | \Illuminate\Http\RedirectResponse.
-     */
-    public function create($data, $inscription)
+    * @return mixed
+    */
+    public function create(array $data, Inscription $inscription)
     {
         $classificationService = new ClassificationService();
 
@@ -50,9 +50,14 @@ class ClassificationsController extends AppController
         $classification = new Classification($data);
         $classification->save();
         $classificationService->calculateRank();
+
+        return;
     }
 
-    public function updateVacancyOccupation($id)
+    /**
+    * @return mixed
+    */
+    public function updateVacancyOccupation(int $id)
     {
         $classification =  Classification::find($id);
         $classificationService = new ClassificationService();
@@ -67,7 +72,10 @@ class ClassificationsController extends AppController
         return $this->index($classification->edict_id);
     }
 
-    public function mountedArray($edict)
+    /**
+    * @return array $listEdictUnits
+    */
+    public function mountedArray(int $edict)
     {
         $edictUnits = EdictUnit::where('edict_id', $edict)->get();
         $classificationService = new ClassificationService();

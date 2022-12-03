@@ -31,6 +31,7 @@
                                               'value'    => $edict->ended_at,
                                               'required' => true,
                                               'errors'   => $errors]) @endcomponent
+                                            
   
     @component('components.form.input_submit',['value' => $submit, 'back_url' => route('admin.edicts')]) @endcomponent
     

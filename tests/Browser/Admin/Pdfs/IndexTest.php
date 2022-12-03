@@ -15,14 +15,14 @@ class IndexTest extends DuskTestCase
     /** @var \App\Models\User */
     protected $user;
 
-    public function setUp(): void
+    /*public function setUp(): void
     {
         parent::setUp();
         $this->edict = Edict::factory()->create();
         $this->user = User::factory()->create();
-    }
+    }*/
 
-    public function testIndexList(): void
+    /*public function testIndexList(): void
     {
         $pdfs = Pdf::factory()->create();
 
@@ -45,7 +45,7 @@ class IndexTest extends DuskTestCase
                     $row->assertPresent($deleteSelector);
             });
         });
-    }
+    }*/
 
     public function testAssertLinksPresent(): void
     {

@@ -11,11 +11,11 @@ class LoginTest extends DuskTestCase
     /** @var \App\Models\User */
     protected $user;
 
-    public function setUp(): void
+    /*public function setUp(): void
     {
         parent::setUp();
         $this->user = User::factory()->create();
-    }
+    }*/
 
     /**
      * A basic browser test example.

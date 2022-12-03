@@ -12,11 +12,11 @@ class IndexTest extends DuskTestCase
     /** @var \App\Models\User */
     protected $user;
 
-    public function setUp(): void
+   /* public function setUp(): void
     {
         parent::setUp();
         $this->user = User::factory()->create();
-    }
+    } */
 
     public function testIndexList(): void
     {
@@ -43,7 +43,7 @@ class IndexTest extends DuskTestCase
         });
     }
 
-    public function testSearchField(): void
+    /*public function testSearchField(): void
     {
         $category = UnitCategory::factory()->create(['name' => 'Unit category name']);
 
@@ -61,7 +61,7 @@ class IndexTest extends DuskTestCase
 
             $browser->assertDontSee($category->name);
         });
-    }
+    }*/
 
     public function testAssertLinksPresent(): void
     {

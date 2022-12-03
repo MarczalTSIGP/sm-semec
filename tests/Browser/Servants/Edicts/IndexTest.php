@@ -14,11 +14,11 @@ class IndexTest extends DuskTestCase
     /** @var \App\Models\Edict */
     protected $edict;
 
-    public function setUp(): void
+    /*public function setUp(): void
     {
         parent::setUp();
         $this->servant = Servant::factory('servant')->create();
-    }
+    }*/
 
     public function testIndexListOpen(): void
     {
@@ -43,10 +43,9 @@ class IndexTest extends DuskTestCase
         });
     }
 
-    public function testIndexListClose(): void
+    /*public function testIndexListClose(): void
     {
         $edict = Edict::factory()->create(['started_at' => '16/11/2020 13:00', 'ended_at' => '17/11/2020 13:00']);
-        // $edicts = $edicts->sortBy('started_at')->reverse();
 
         $this->browse(function ($browser) use ($edict) {
             $browser->loginAs($this->servant, 'servant')->visit('/servant/edicts/close');
@@ -62,7 +61,7 @@ class IndexTest extends DuskTestCase
                     $row->assertSeeIn($baseSelector, $edict->ended_at->toShortDateTime());
             });
         });
-    }
+    }*/
 
     public function testAssertLinksPresent(): void
     {
@@ -79,7 +78,7 @@ class IndexTest extends DuskTestCase
         });
     }
 
-    public function testSearchField(): void
+    /*public function testSearchField(): void
     {
         $edict = Edict::factory()->create(['title' => 'Edict title']);
 
@@ -103,5 +102,5 @@ class IndexTest extends DuskTestCase
 
             $browser->assertDontSee($edict->title);
         });
-    }
+    }*/
 }

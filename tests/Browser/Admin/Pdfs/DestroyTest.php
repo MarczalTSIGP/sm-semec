@@ -17,13 +17,13 @@ class DestroyTest extends DuskTestCase
     /** @var \App\Models\Pdf */
     protected $pdf;
 
-    public function setUp(): void
+    /*public function setUp(): void
     {
         parent::setUp();
         $this->edict = Edict::factory()->create();
         $this->user = User::factory()->create();
         $this->pdf = Pdf::factory()->create();
-    }
+    }*/
 
     public function testDestroy(): void
     {

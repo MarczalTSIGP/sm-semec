@@ -19,13 +19,13 @@ class DestroyTest extends DuskTestCase
     /** @var \App\Models\Movement */
     protected $movement;
 
-    public function setUp(): void
+    /*public function setUp(): void
     {
         parent::setUp();
         $this->user = User::factory()->create();
         $this->unit = Unit::factory()->create();
         $this->movement = Movement::factory()->create();
-    }
+    }*/
 
     public function testDestroy(): void
     {

@@ -14,14 +14,14 @@ class DestroyTest extends DuskTestCase
     /** @var \App\Models\User */
     protected $user;
 
-    public function setUp(): void
+    /*public function setUp(): void
     {
         parent::setUp();
         $this->edict = Edict::factory()->create();
         $this->user = User::factory()->create();
-    }
+    }*/
 
-    public function testDestroy(): void
+    /*public function testDestroy(): void
     {
         $this->browse(function ($browser) {
             $browser->loginAs($this->user)->visit('/admin/edicts');
@@ -33,5 +33,5 @@ class DestroyTest extends DuskTestCase
                     ->assertDontSee($this->edict->title);
             });
         });
-    }
+    }*/
 }

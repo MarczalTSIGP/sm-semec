@@ -17,6 +17,9 @@ class Formation extends Model
         'score_formation',
     ];
 
+    /**
+    * @return \Illuminate\Database\Eloquent\Relations\HasOne
+    */
     public function servantCompletaryData()
     {
         return $this->hasOne(ServantCompletaryData::class);

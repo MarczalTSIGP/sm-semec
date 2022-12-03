@@ -13,11 +13,11 @@ class CreateTest extends DuskTestCase
     /** @var \App\Models\Unit */
     protected $unit;
     /** @var \App\Models\User */
-    protected $user;
+    //protected $user;
     /** @var \App\Models\UnitCategory */
     protected $categories;
 
-    public function setUp(): void
+    /*public function setUp(): void
     {
         parent::setUp();
         $this->categories = UnitCategory::factory()->count(4)->create();
@@ -25,9 +25,9 @@ class CreateTest extends DuskTestCase
             'name' => 'Escola Municipal Santa Cruz',
         ]);
         $this->user = User::factory()->create();
-    }
+    }*/
 
-    public function testSucessfullyCreate(): void
+    /*public function testSucessfullyCreate(): void
     {
         $this->browse(function ($browser) {
             $browser->loginAs($this->user)->visit(route('admin.new.unit'));
@@ -48,9 +48,9 @@ class CreateTest extends DuskTestCase
                 $table->assertSee($this->unit->name);
             });
         });
-    }
+    }*/
 
-    public function testFailureCreate(): void
+    /*public function testFailureCreate(): void
     {
         $this->browse(function ($browser) {
             $browser->loginAs($this->user)->visit(route('admin.new.unit'));
@@ -74,9 +74,9 @@ class CreateTest extends DuskTestCase
                 $flash->assertSee('O campo telefone é obrigatório.');
             });
         });
-    }
+    }*/
 
-    public function testFailureValidateCaracteresPhone(): void
+    /*public function testFailureValidateCaracteresPhone(): void
     {
         $this->browse(function ($browser) {
             $browser->loginAs($this->user)->visit(route('admin.new.unit'));
@@ -99,9 +99,9 @@ class CreateTest extends DuskTestCase
                 $flash->assertSee('O campo telefone deve ter pelo menos 10 caracteres.');
             });
         });
-    }
+    }*/
 
-    public function testUniquenessOnCreate(): void
+    /*public function testUniquenessOnCreate(): void
     {
         $this->browse(function ($browser) {
             $browser->loginAs($this->user)->visit(route('admin.new.unit'));
@@ -129,9 +129,9 @@ class CreateTest extends DuskTestCase
                 $flash->assertSee('O campo telefone já está sendo utilizado.');
             });
         });
-    }
+    }*/
 
-    public function testAssertLinksPresent(): void
+    /*public function testAssertLinksPresent(): void
     {
         $this->unit = Unit::factory()->create();
 
@@ -148,5 +148,5 @@ class CreateTest extends DuskTestCase
             $browser->assertSeeIn($secondBreadcrumbSelector, 'Unidades');
             $browser->assertSeeIn($thirdBreadcrumbSelector, "Nova Unidade");
         });
-    }
+    }*/
 }

@@ -17,15 +17,15 @@ class UpdateTest extends DuskTestCase
     /** @var \App\Models\UnitCategory */
     protected $categories;
 
-    public function setUp(): void
+    /*public function setUp(): void
     {
         parent::setUp();
         $this->unit = Unit::factory()->create();
         $this->user = User::factory()->create();
         $this->categories = UnitCategory::factory()->count(4)->create();
-    }
+    } */
 
-    public function testFilledFields(): void
+ /*   public function testFilledFields(): void
     {
         $this->browse(function ($browser) {
             $browser->loginAs($this->user)->visit(route('admin.edit.unit', $this->unit->id));
@@ -35,9 +35,9 @@ class UpdateTest extends DuskTestCase
                     ->assertInputValue('phone', $this->unit->phone)
                     ->assertSelected('category_id', $this->unit->category_id);
         });
-    }
+    }*/
 
-    public function testSucessfullyUpdate(): void
+ /*   public function testSucessfullyUpdate(): void
     {
         $this->browse(function ($browser) {
             $browser->loginAs($this->user)->visit(route('admin.edit.unit', $this->unit->id));
@@ -64,9 +64,9 @@ class UpdateTest extends DuskTestCase
                 $table->assertDontSee($this->unit->name);
             });
         });
-    }
+    }*/
 
-    public function testFailuteUpdate(): void
+    /*public function testFailuteUpdate(): void
     {
         $this->browse(function ($browser) {
             $browser->loginAs($this->user)->visit(route('admin.edit.unit', $this->unit->id));
@@ -91,9 +91,9 @@ class UpdateTest extends DuskTestCase
                 $flash->assertSee('O campo telefone é obrigatório.');
             });
         });
-    }
+    }*/
 
-    public function testFailureValidateCaracteresPhone(): void
+    /*public function testFailureValidateCaracteresPhone(): void
     {
         $this->browse(function ($browser) {
             $browser->loginAs($this->user)->visit(route('admin.edit.unit', $this->unit->id));
@@ -109,9 +109,9 @@ class UpdateTest extends DuskTestCase
                 $flash->assertSee('O campo telefone deve ter pelo menos 10 caracteres.');
             });
         });
-    }
+    }*/
 
-    public function testUniquenessOnUpdate(): void
+   /* public function testUniquenessOnUpdate(): void
     {
          $this->browse(function ($browser) {
             $existingUnit = Unit::factory()->create();
@@ -138,9 +138,9 @@ class UpdateTest extends DuskTestCase
                 $flash->assertSee('Unidade atualizada com sucesso');
             });
          });
-    }
+    }*/
 
-    public function testAssertLinksPresent(): void
+    /*public function testAssertLinksPresent(): void
     {
         $this->unit = Unit::factory()->create();
 
@@ -157,5 +157,5 @@ class UpdateTest extends DuskTestCase
             $browser->assertSeeIn($secondBreadcrumbSelector, 'Unidades');
             $browser->assertSeeIn($thirdBreadcrumbSelector, "Editar Unidade #{$this->unit->id}");
         });
-    }
+    }*/
 }

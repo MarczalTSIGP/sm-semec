@@ -16,7 +16,7 @@ class ServantResetPasswordNotificationTest extends TestCase
     /** @var \App\Models\Servant */
     protected $servant;
 
-    public function setUp(): void
+    /*public function setUp(): void
     {
         parent::setUp();
         $this->servant = Servant::factory()->create();
@@ -25,7 +25,7 @@ class ServantResetPasswordNotificationTest extends TestCase
 
         //Notify the Servant that you need to use Notifiable.
         $this->servant->notify(new ResetPasswordNotification($this->servant));
-    }
+    }*/
 
     public function tearDown(): void
     {

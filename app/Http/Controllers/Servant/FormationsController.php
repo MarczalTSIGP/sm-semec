@@ -12,7 +12,7 @@ class FormationsController extends AppController
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\View\View
+     * @return mixed
      */
     public function index()
     {
@@ -23,13 +23,15 @@ class FormationsController extends AppController
 
     /**
      * Store a newly created resource in storage.
-     * @param  \Illuminate\Http\Request  $request
-     * @return  \Illuminate\View\View | \Illuminate\Http\RedirectResponse.
+     * @param  object $data
+     * @return  mixed
      */
     public function create($data)
     {
         $formation = new Formation($data);
 
         $formation->save();
+
+        return;
     }
 }

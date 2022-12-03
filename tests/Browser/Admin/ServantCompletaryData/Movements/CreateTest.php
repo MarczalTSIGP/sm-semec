@@ -23,14 +23,14 @@ class CreateTest extends DuskTestCase
     /** @var \App\Models\Movement */
     protected $movement;
 
-    public function setUp(): void
+    /*public function setUp(): void
     {
         parent::setUp();
         $this->user = User::factory()->create();
         $this->units = Unit::factory()->create();
         $this->completaryData = ServantCompletaryData::factory()->create();
         $this->movement = Movement::factory()->create();
-    }
+    }*/
 
     public function testSucessfullyCreate(): void
     {
@@ -81,7 +81,7 @@ class CreateTest extends DuskTestCase
         });
     }
 
-    public function testAssertLinksPresent(): void
+    /*public function testAssertLinksPresent(): void
     {
         $this->movement = Movement::factory()->create();
 
@@ -112,5 +112,5 @@ class CreateTest extends DuskTestCase
             $browser->assertSeeIn($fifthBreadcrumbSelector, "Dados Complementares");
             $browser->assertSeeIn($sixthBreadcrumbSelector, "Nova Movimentação");
         });
-    }
+    }*/
 }

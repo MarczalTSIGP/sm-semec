@@ -133,7 +133,10 @@ class EdictsController extends AppController
         return redirect()->route('admin.edicts')->with('success', 'Edital removido com sucesso.');
     }
 
-    public function newAddVacanciesInUnits($id)
+    /**
+    * @return \Illuminate\View\View | \Illuminate\Http\RedirectResponse
+    */
+    public function newAddVacanciesInUnits(int $id)
     {
 
         $edict =  Edict::find($id);
@@ -147,7 +150,10 @@ class EdictsController extends AppController
         ]);
     }
 
-    public function createVancanciesInUnit(Request $request, $edict)
+    /**
+    * @return mixed
+    */
+    public function createVancanciesInUnit(Request $request, int $edict)
     {
         $data = $request->all();
         $data['edict_id'] = $edict;

@@ -13,12 +13,12 @@ class UploadPdf extends TestCase
     /** @var \App\Models\Pdf */
     protected $pdf;
 
-    public function setUp(): void
+    /*public function setUp(): void
     {
         parent::setUp();
         $this->pdf = Pdf::factory()->make([
         'pdf' => UploadedFile::fake()->create('document.pdf', 'application/pdf')]);
-    }
+    }*/
 
     public function tearDown(): void
     {

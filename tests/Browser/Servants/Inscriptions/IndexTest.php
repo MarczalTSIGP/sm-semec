@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Browser\Servants\Inscriptions;
+/*namespace Tests\Browser\Servants\Inscriptions;
 
 use Laravel\Dusk\Browser;
 use Tests\DuskTestCase;
@@ -11,9 +11,9 @@ use App\Models\Inscription;
 class IndexTest extends DuskTestCase
 {
     /** @var \App\Models\Servant */
-    protected $servant;
+   //protected $servant;
 
-    public function setUp(): void
+    /*public function setUp(): void
     {
         parent::setUp();
         $this->servant = Servant::factory('servant')->create();
@@ -53,4 +53,4 @@ class IndexTest extends DuskTestCase
             $browser->assertSeeIn($secondBreadcrumSelector, 'Minhas Inscrições');
         });
     }
-}
+}*/

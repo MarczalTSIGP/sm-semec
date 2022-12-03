@@ -9,21 +9,30 @@ use App\Models\EdictUnit;
 
 class ClassificationService
 {
-    public function calculateDaysWorked($inscription)
+    /**
+    * @return int $daysWorked
+    */
+    public function calculateDaysWorked(Inscription $inscription)
     {
           $daysWorked  = \Carbon\Carbon::now()->diffInDays($inscription->contract->admission_at);
 
           return $daysWorked;
     }
 
-    public function calculateFormationScore($inscription)
+    /**
+    * @return int $score
+    */
+    public function calculateFormationScore(Inscription $inscription)
     {
         $score =  $inscription->contract->servantCompletaryData->formation->score_formation;
 
         return $score;
     }
 
-    public function calculateDaysWorkedInUnit($inscription)
+    /**
+    * @return int $diffDates
+    */
+    public function calculateDaysWorkedInUnit(Inscription $inscription)
     {
         $servantCompletaryData = $inscription->contract->servantCompletaryData;
          $unitIds = [];
@@ -35,15 +44,17 @@ class ClassificationService
                              ->whereIn('unit_id', $unitIds)->get();
         $diffDates = 0;
 
-        if ($movements) {
-            foreach ($movements as $movement) {
-                $started = $movement->started_at;
-                $diffDates +=  $started->diffInDays($movement->ended_at);
-            }
+        foreach ($movements as $movement) {
+            $started = $movement['started_at'];
+            $diffDates +=  $started->diffInDays($movement['ended_at']);
         }
+
         return $diffDates;
     }
 
+    /**
+    * @return mixed
+    */
     public function calculaterank()
     {
         $classifications = Classification::where('occupied_vacancy', false)
@@ -59,9 +70,13 @@ class ClassificationService
             $classification->save();
             $count++;
         }
+        return;
     }
 
-    public function decreaseVacancyInUnitOfInterest($inscription)
+    /**
+    * @return mixed
+    */
+    public function decreaseVacancyInUnitOfInterest(Inscription $inscription)
     {
 
         foreach ($inscription->interestedUnits as $unit) {
@@ -87,20 +102,24 @@ class ClassificationService
         }
     }
 
-
-    public function countServants($servantsId)
+    /**
+    * @return int $countServant
+    */
+    public function countServants(string $servantsId)
     {
-        $countServant;
+        $countServant = 0;
 
-        if (is_null($servantsId)) {
-            $countServant = 0;
-        }
+        if (!is_null($servantsId)) {
             $servants = explode(',', $servantsId);
             $countServant = count($servants);
+        }
         return $countServant;
     }
 
-    public function increaseVacancyInTheUnit($inscription)
+    /**
+    * @return mixed
+    */
+    public function increaseVacancyInTheUnit(Inscription $inscription)
     {
         $edictUnit = EdictUnit::where('edict_id', $inscription->edict_id)
                               ->where('unit_id', $inscription->current_unit_id)

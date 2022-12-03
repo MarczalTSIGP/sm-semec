@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Browser\Edicts;
+/*namespace Tests\Browser\Edicts;
 
 use Laravel\Dusk\Browser;
 use Tests\DuskTestCase;
@@ -18,4 +18,4 @@ class IndexTest extends DuskTestCase
                 ->assertSeeLink($pdfs->name);
         });
     }
-}
+}*/

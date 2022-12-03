@@ -18,12 +18,12 @@ class CreateTest extends DuskTestCase
     /** @var \App\Models\Pdf */
     protected $pdf;
 
-    public function setUp(): void
+    /*public function setUp(): void
     {
         parent::setUp();
         $this->edict = Edict::factory()->create();
         $this->user = User::factory()->create();
-    }
+    }*/
 
     public function testFailureCreate(): void
     {

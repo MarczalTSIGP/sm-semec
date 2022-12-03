@@ -14,12 +14,12 @@ class UpdateTest extends DuskTestCase
     /** @var \App\Models\User */
     protected $user;
 
-    public function setUp(): void
+    /*public function setUp(): void
     {
         parent::setUp();
         $this->category = UnitCategory::factory()->create();
         $this->user = User::factory()->create();
-    }
+    }*/
 
     public function testFilledFields(): void
     {
@@ -30,7 +30,7 @@ class UpdateTest extends DuskTestCase
         });
     }
 
-    public function testSucessfullyUpdate(): void
+    /*public function testSucessfullyUpdate(): void
     {
         $this->browse(function ($browser) {
             $browser->loginAs($this->user)->visit(route('admin.edit.unit_category', $this->category->id));
@@ -51,7 +51,7 @@ class UpdateTest extends DuskTestCase
                 $table->assertDontSee($this->category->name);
             });
         });
-    }
+    }*/
 
     public function testFailuteUpdate(): void
     {
@@ -72,7 +72,7 @@ class UpdateTest extends DuskTestCase
         });
     }
 
-    public function testUniquenessOnUpdate(): void
+    /*public function testUniquenessOnUpdate(): void
     {
         $this->browse(function ($browser) {
             $category = UnitCategory::factory()->create();
@@ -117,5 +117,5 @@ class UpdateTest extends DuskTestCase
             $browser->assertSeeIn($secondBreadcrumbSelector, 'Categorias');
             $browser->assertSeeIn($thirdBreadcrumbSelector, "Editar Categoria #{$this->category->id}");
         });
-    }
+    }*/
 }

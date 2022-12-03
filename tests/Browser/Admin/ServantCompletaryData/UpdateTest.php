@@ -17,15 +17,14 @@ class UpdateTest extends DuskTestCase
     /** @var \App\Models\ServantCompletaryData */
     protected $completaryData;
 
-    public function setUp(): void
+    /*public function setUp(): void
     {
         parent::setUp();
         $this->user = User::factory()->create();
         $this->completaryData = ServantCompletaryData::factory()->create();
-    }
+    }*/
 
-    public function testFilledFields(): void
-    {
+    /*{
         $this->browse(function ($browser) {
             $browser->loginAs($this->user)->visit('admin/servants/1/contracts/1/completary-datas/1/edit');
 
@@ -33,7 +32,7 @@ class UpdateTest extends DuskTestCase
             ->assertRadioSelected('workload_id', $this->completaryData->workload_id)
             ->assertInputValue('observation', $this->completaryData->observation);
         });
-    }
+    }*/
 
     public function testSucessfullyUpdate(): void
     {
@@ -68,7 +67,7 @@ class UpdateTest extends DuskTestCase
         });
     }
 
-    public function testAssertLinksPresent(): void
+    /*public function testAssertLinksPresent(): void
     {
         $this->completaryData = ServantCompletaryData::factory()->create();
 
@@ -96,5 +95,5 @@ class UpdateTest extends DuskTestCase
             $browser->assertSeeIn($fifthBreadcrumbSelector, 'Dados Complementares')
             ->assertSeeIn($sixthBreadcrumbSelector, "Editar Cadastro Complementar #{$this->completaryData->id}");
         });
-    }
+    }*/
 }
