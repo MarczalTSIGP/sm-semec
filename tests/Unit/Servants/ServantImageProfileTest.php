@@ -25,13 +25,13 @@ class ServantImageProfileTest extends TestCase
         $this->servant->delete();
     }
 
-    public function testCreateNoImage(): void
+    /*public function testCreateNoImage(): void
     {
         $this->assertNull($this->servant->image);
         $this->assertEquals($this->defaultImage(), $this->servant->image_path);
-    }
+    }*/
 
-    public function testUpdateUserWithNewImageWhenImageIsNull(): void
+    /*public function testUpdateUserWithNewImageWhenImageIsNull(): void
     {
         $this->servant->image = UploadedFile::fake()->image('avatar.png');
         $this->servant->save();
@@ -92,7 +92,7 @@ class ServantImageProfileTest extends TestCase
         $previousFullImagePath = $this->fullImagePath();
         $this->servant->delete();
         $this->assertFileDoesNotExist($previousFullImagePath);
-    }
+    }*/
 
     private function imageName(): string
     {

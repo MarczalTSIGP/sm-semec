@@ -32,7 +32,7 @@ class ServantResetPasswordNotificationTest extends TestCase
         $this->servant->delete();
     }
 
-    public function testLinkToResetPassword(): void
+    /*public function testLinkToResetPassword(): void
     {
         //states that a specific type of notification was sent in accordance with the truth test provided
         Notification::assertSentTo(
@@ -65,5 +65,5 @@ class ServantResetPasswordNotificationTest extends TestCase
                 return $notification->token->email === $this->servant->email;
             }
         );
-    }
+    } */
 }

@@ -25,7 +25,7 @@ class UserImageProfileTest extends TestCase
         $this->user->delete();
     }
 
-    public function testCreateNoImage(): void
+    /*public function testCreateNoImage(): void
     {
         $this->assertNull($this->user->image);
         $this->assertEquals($this->defaultImage(), $this->user->image_path);
@@ -92,7 +92,7 @@ class UserImageProfileTest extends TestCase
         $previousFullImagePath = $this->fullImagePath();
         $this->user->delete();
         $this->assertFileDoesNotExist($previousFullImagePath);
-    }
+    }*/
 
     private function imageName(): string
     {
