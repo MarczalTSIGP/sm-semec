@@ -26,9 +26,12 @@ class ClassificationsController extends AppController
         $edictUnits = $this->mountedArray($edict);
 
         return view('admin.classifications.index', [
-                                                        'classificationOccupiedVacancyFalse' => $classificationOccupiedVacancyFalse,
-                                                        'classificationOccupiedVacancyTrue' => $classificationOccupiedVacancyTrue,
-                                                        'edictUnits' => $edictUnits,
+                                                        'classificationOccupiedVacancyFalse'
+                                                        => $classificationOccupiedVacancyFalse,
+                                                        'classificationOccupiedVacancyTrue'
+                                                        => $classificationOccupiedVacancyTrue,
+                                                        'edictUnits'
+                                                        => $edictUnits,
                                                     ]);
     }
 

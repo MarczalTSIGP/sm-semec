@@ -119,7 +119,8 @@ class ClassificationService
                         'unit_id' => $inscription->current_unit_id,
                         'number_vacancies' => '1',
                         'type_of_vacancy' => 'released']);
-            return redirect()->route('admin.new.vacant_unit', ['edict' => $inscription->edict])->with('success', 'Vagas cadastradas com sucesso');
+            return redirect()->route('admin.new.vacant_unit', ['edict' => $inscription->edict])
+                            ->with('success', 'Vagas cadastradas com sucesso');
         }
 
         return;
