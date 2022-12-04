@@ -168,8 +168,8 @@ class EdictsController extends AppController
             $edictUnit->update();
         } else {
             EdictUnit::create(['edict_id' => $data['edict_id'],
-                                'unit_id' => $data['unit_id'], 
-                                'number_vacancies' => $data['number_vacancies'], 
+                                'unit_id' => $data['unit_id'],
+                                'number_vacancies' => $data['number_vacancies'],
                                 'type_of_vacancy' => 'registered']);
             return redirect()->route('admin.new.vacant_unit', ['edict' => $edict])
                             ->with('success', 'Vagas cadastradas com sucesso');
