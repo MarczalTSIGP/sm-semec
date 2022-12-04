@@ -9,6 +9,12 @@ use App\Models\EdictUnit;
 
 class ClassificationService
 {
+    /**
+    * Calculate days worked
+    *
+    * @return int $daysWorked
+    * @param  \App\Models\Inscription $inscription
+    */
     public function calculateDaysWorked($inscription)
     {
           $daysWorked  = \Carbon\Carbon::now()->diffInDays($inscription->contract->admission_at);
@@ -16,6 +22,12 @@ class ClassificationService
           return $daysWorked;
     }
 
+    /**
+    * Calculate formation score
+    *
+    * @return int $score
+    * @param  \App\Models\Inscription $inscription
+    */
     public function calculateFormationScore($inscription)
     {
         $score =  $inscription->contract->servantCompletaryData->formation->score_formation;
@@ -23,6 +35,12 @@ class ClassificationService
         return $score;
     }
 
+    /**
+    * Calculate days worked in unit
+    *
+    * @return int $diffDates
+    * @param  \App\Models\Inscription $inscription
+    */
     public function calculateDaysWorkedInUnit($inscription)
     {
         $servantCompletaryData = $inscription->contract->servantCompletaryData;
@@ -35,17 +53,17 @@ class ClassificationService
                              ->whereIn('unit_id', $unitIds)->get();
         $diffDates = 0;
 
-        if ($movements) {
-            foreach ($movements as $movement) {
-                $started = $movement->started_at;
-                $diffDates +=  $started->diffInDays($movement->ended_at);
-            }
-        } else {
-                return $diffDates;
+        foreach ($movements as $movement) {
+                $started = $movement['started_at'];
+                $diffDates +=  $started->diffInDays($movement['ended_at']);
         }
         return $diffDates;
     }
 
+    /**
+    *
+    * @return mixed
+    */
     public function calculaterank()
     {
         $classifications = Classification::where('occupied_vacancy', false)
@@ -61,8 +79,14 @@ class ClassificationService
             $classification->save();
             $count++;
         }
+        return;
     }
 
+    /**
+    *
+    * @return mixed
+    * @param  \App\Models\Inscription $inscription
+    */
     public function decreaseVacancyInUnitOfInterest($inscription)
     {
 
@@ -74,13 +98,12 @@ class ClassificationService
                 if ($edictUnit->number_vacancies > 0) {
                     if (is_null($edictUnit->servants_id)) {
                         $edictUnit->servants_id = $inscription->contract->servant_id;
-                    } else {
+                    }
                         $count = $this->countServants($edictUnit->servants_id);
 
-                        if ($edictUnit->number_vacancies != $count) {
+                    if ($edictUnit->number_vacancies != $count) {
                             $edictUnit->servants_id = $edictUnit->servants_id . ","
                             . $inscription->contract->servant_id;
-                        }
                     }
                     $edictUnit->update();
                     return;
@@ -89,20 +112,27 @@ class ClassificationService
         }
     }
 
-
+    /**
+    *
+    * @return int $countServant
+    * @param  string $servantsId
+    */
     public function countServants($servantsId)
     {
-        $countServant;
-
         if (is_null($servantsId)) {
             $countServant = 0;
-        } else {
-            $servants = explode(',', $servantsId);
-            $countServant = count($servants);
+            return $countServant;
         }
+        $servants = explode(',', $servantsId);
+        $countServant = count($servants);
         return $countServant;
     }
 
+    /**
+    *
+    * @return \Illuminate\Http\RedirectResponse
+    * @param  \App\Models\Inscription $inscription
+    */
     public function increaseVacancyInTheUnit($inscription)
     {
         $edictUnit = EdictUnit::where('edict_id', $inscription->edict_id)
@@ -113,16 +143,15 @@ class ClassificationService
         if ($edictUnit) {
             $edictUnit->number_vacancies = $edictUnit->number_vacancies + 1;
             $edictUnit->update();
-        } else {
-            EdictUnit::create([
+            return redirect()->route('admin.new.vacant_unit', ['edict' => $inscription->edict])
+            ->with('success', 'Vagas cadastradas com sucesso');
+        }
+        EdictUnit::create([
                         'edict_id' => $inscription->edict_id,
                         'unit_id' => $inscription->current_unit_id,
                         'number_vacancies' => '1',
                         'type_of_vacancy' => 'released']);
-            return redirect()->route('admin.new.vacant_unit', ['edict' => $inscription->edict])
+        return redirect()->route('admin.new.vacant_unit', ['edict' => $inscription->edict])
                             ->with('success', 'Vagas cadastradas com sucesso');
-        }
-
-        return;
     }
 }

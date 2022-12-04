@@ -28,6 +28,9 @@ class ServantCompletaryData extends Model
         return $this->belongsTo(Contract::class, 'contract_id');
     }
 
+    /**
+    * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+    */
     public function formation()
     {
         return $this->belongsTo(Formation::class, 'formation_id');

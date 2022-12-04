@@ -16,10 +16,6 @@ class Classification extends Model
     */
     protected $model = Classification::class;
 
-    /**
-     * @var array
-     */
-
     public $timestamps = false;
 
     protected $fillable = [

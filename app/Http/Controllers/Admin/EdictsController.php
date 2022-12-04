@@ -133,6 +133,13 @@ class EdictsController extends AppController
         return redirect()->route('admin.edicts')->with('success', 'Edital removido com sucesso.');
     }
 
+
+    /**
+    *
+    * @param  \App\Models\Edict  $id
+    * @return \Illuminate\View\View | \Illuminate\Http\RedirectResponse
+    *
+    */
     public function newAddVacanciesInUnits($id)
     {
 
@@ -147,17 +154,16 @@ class EdictsController extends AppController
         ]);
     }
 
+    /**
+    *
+    * @param  \App\Models\Edict  $edict
+    * @return \Illuminate\Http\RedirectResponse
+    *
+    */
     public function createVancanciesInUnit(Request $request, $edict)
     {
         $data = $request->all();
         $data['edict_id'] = $edict;
-
-        $validator = Validator::make($data, [
-            'edict_id'       => 'required|exists:edicts,id',
-            'unit_id' => 'required|exists:units,id',
-            'number_vacancies'  => 'required|integer',
-
-        ]);
 
         $edictUnit = EdictUnit::where('edict_id', $data['edict_id'])
                               ->where('unit_id', $data['unit_id'])
@@ -166,13 +172,14 @@ class EdictsController extends AppController
         if ($edictUnit) {
             $edictUnit->number_vacancies = $data['number_vacancies'];
             $edictUnit->update();
-        } else {
+            return redirect()->route('admin.new.vacant_unit', ['edict' => $edict])
+                            ->with('success', 'Vagas cadastradas com sucesso');
+        }
             EdictUnit::create(['edict_id' => $data['edict_id'],
                                 'unit_id' => $data['unit_id'],
                                 'number_vacancies' => $data['number_vacancies'],
                                 'type_of_vacancy' => 'registered']);
             return redirect()->route('admin.new.vacant_unit', ['edict' => $edict])
                             ->with('success', 'Vagas cadastradas com sucesso');
-        }
     }
 }
