@@ -16,12 +16,12 @@ class ShowTest extends DuskTestCase
     /** @var \App\Models\Inscription */
     protected $inscription;
 
-    public function setUp(): void
+    /*public function setUp(): void
     {
         parent::setUp();
         $this->servant = Servant::factory('servant')->create();
         $this->inscription = Inscription::factory()->create(['servant_id' => 1]);
-    }
+    }*/
 
     public function testShow(): void
     {

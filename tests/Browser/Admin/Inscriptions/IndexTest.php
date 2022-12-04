@@ -12,7 +12,7 @@ class IndexTest extends DuskTestCase
     /** @var \App\Models\User */
     protected $user;
 
-    public function setUp(): void
+    /*public function setUp(): void
     {
         parent::setUp();
         $this->user = User::factory()->create();
@@ -55,5 +55,5 @@ class IndexTest extends DuskTestCase
             $browser->assertSeeIn($secondBreadcrumbSelector, 'Editais');
             $browser->assertSeeIn($thirdBreadcrumbSelector, "Inscrições no Edital #{$inscription->edict->id}");
         });
-    }
+    }*/
 }

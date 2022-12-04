@@ -25,7 +25,7 @@ class IndexTest extends DuskTestCase
 
 
 
-    public function setUp(): void
+    /*public function setUp(): void
     {
         parent::setUp();
         $this->user = User::factory()->create();
@@ -35,7 +35,7 @@ class IndexTest extends DuskTestCase
                              'servant_id'  => $this->completaryData->contract->servant_id,
                              'id' => $this->completaryData->contract_id
                              ]);
-    }
+    }*/
 
     public function testIndexList(): void
     {

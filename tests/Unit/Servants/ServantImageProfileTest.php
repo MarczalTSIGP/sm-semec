@@ -14,11 +14,11 @@ class ServantImageProfileTest extends TestCase
     /** @var \App\Models\Servant */
     protected $servant;
 
-    public function setUp(): void
+    /*public function setUp(): void
     {
         parent::setUp();
         $this->servant = Servant::factory()->create();
-    }
+    }*/
 
     public function down(): void
     {

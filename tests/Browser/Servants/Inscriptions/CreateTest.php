@@ -23,7 +23,7 @@ class CreateTest extends DuskTestCase
     /** @var \App\Models\Unit */
     protected $units;
 
-    public function setUp(): void
+    /*public function setUp(): void
     {
         parent::setUp();
         $this->servant = Servant::factory()->create();
@@ -35,7 +35,7 @@ class CreateTest extends DuskTestCase
 
         $this->units = Unit::factory()->count(3)->create();
         $this->removalTypes = RemovalType::factory()->count(3)->create();
-    }
+    }*/
 
     public function testRedirectWhenEdictIsExpiredForActionNew(): void
     {

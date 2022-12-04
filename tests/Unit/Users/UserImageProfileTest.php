@@ -14,11 +14,12 @@ class UserImageProfileTest extends TestCase
     /** @var \App\Models\User */
     protected $user;
 
-    public function setUp(): void
+ /*   public function setUp(): void
     {
         parent::setUp();
         $this->user = User::factory()->create();
     }
+    */
 
     public function tearDown(): void
     {

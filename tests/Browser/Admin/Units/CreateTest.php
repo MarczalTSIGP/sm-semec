@@ -17,7 +17,7 @@ class CreateTest extends DuskTestCase
     /** @var \App\Models\UnitCategory */
     protected $categories;
 
-    public function setUp(): void
+    /*public function setUp(): void
     {
         parent::setUp();
         $this->categories = UnitCategory::factory()->count(4)->create();
@@ -25,7 +25,7 @@ class CreateTest extends DuskTestCase
             'name' => 'Escola Municipal Santa Cruz',
         ]);
         $this->user = User::factory()->create();
-    }
+    }*/
 
     public function testSucessfullyCreate(): void
     {
@@ -101,7 +101,7 @@ class CreateTest extends DuskTestCase
         });
     }
 
-    public function testUniquenessOnCreate(): void
+    /*public function testUniquenessOnCreate(): void
     {
         $this->browse(function ($browser) {
             $browser->loginAs($this->user)->visit(route('admin.new.unit'));
@@ -148,5 +148,5 @@ class CreateTest extends DuskTestCase
             $browser->assertSeeIn($secondBreadcrumbSelector, 'Unidades');
             $browser->assertSeeIn($thirdBreadcrumbSelector, "Nova Unidade");
         });
-    }
+    }*/
 }

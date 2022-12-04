@@ -17,12 +17,12 @@ class UpdateTest extends DuskTestCase
     /** @var \App\Models\ServantCompletaryData */
     protected $completaryData;
 
-    public function setUp(): void
+    /*public function setUp(): void
     {
         parent::setUp();
         $this->user = User::factory()->create();
         $this->completaryData = ServantCompletaryData::factory()->create();
-    }
+    }*/
 
     public function testFilledFields(): void
     {
@@ -68,7 +68,7 @@ class UpdateTest extends DuskTestCase
         });
     }
 
-    public function testAssertLinksPresent(): void
+   /* public function testAssertLinksPresent(): void
     {
         $this->completaryData = ServantCompletaryData::factory()->create();
 
@@ -96,5 +96,5 @@ class UpdateTest extends DuskTestCase
             $browser->assertSeeIn($fifthBreadcrumbSelector, 'Dados Complementares')
             ->assertSeeIn($sixthBreadcrumbSelector, "Editar Cadastro Complementar #{$this->completaryData->id}");
         });
-    }
+    }*/
 }

@@ -19,13 +19,13 @@ class UpdateTest extends DuskTestCase
     /** @var \App\Models\Movement */
     protected $movement;
 
-    public function setUp(): void
+    /*public function setUp(): void
     {
         parent::setUp();
         $this->user = User::factory()->create();
         $this->unit = Unit::factory()->create();
         $this->movement = Movement::factory()->create();
-    }
+    }*/
 
     public function testFilledFields(): void
     {
@@ -42,7 +42,7 @@ class UpdateTest extends DuskTestCase
         });
     }
 
-    public function testSucessfullyUpdate(): void
+    /*public function testSucessfullyUpdate(): void
     {
         $this->browse(function ($browser) {
                 $browser->loginAs($this->user)->visit(route('admin.edit.movement', ['servant_id' =>
@@ -76,7 +76,7 @@ class UpdateTest extends DuskTestCase
                     $table->assertDontSee($this->movement->occupation);
                 });
         });
-    }
+    }*/
 
     public function testFailuteUpdate(): void
     {
@@ -105,7 +105,7 @@ class UpdateTest extends DuskTestCase
         });
     }
 
-    public function testAssertLinksPresent(): void
+    /*public function testAssertLinksPresent(): void
     {
         $this->movement = Movement::factory()->create();
 
@@ -137,5 +137,5 @@ class UpdateTest extends DuskTestCase
             $browser->assertSeeIn($fifthBreadcrumbSelector, "Dados Complementares");
             $browser->assertSeeIn($sixthBreadcrumbSelector, "Editar Movimentação #{$this->movement->id}");
         });
-    }
+    }*/
 }

@@ -20,13 +20,13 @@ class CreateTest extends DuskTestCase
     /** @var \App\Models\Contract */
     protected $contract;
 
-    public function setUp(): void
+    /*public function setUp(): void
     {
         parent::setUp();
         $this->user = User::factory()->create();
         $this->contract = Contract::factory()->create();
         $this->workloads = Workload::factory()->create();
-    }
+    }*/
 
     public function testSucessfullyCreate(): void
     {

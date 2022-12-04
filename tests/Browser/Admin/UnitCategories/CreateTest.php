@@ -14,14 +14,14 @@ class CreateTest extends DuskTestCase
     /** @var \App\Models\User */
     protected $user;
 
-    public function setUp(): void
+    /*public function setUp(): void
     {
         parent::setUp();
         $this->category = UnitCategory::factory()->make([
             'name' => 'Cmei',
         ]);
         $this->user = User::factory()->create();
-    }
+    }*/
 
     public function testSucessfullyCreate(): void
     {
@@ -54,7 +54,7 @@ class CreateTest extends DuskTestCase
         });
     }
 
-    public function testUniquenessOnCreate(): void
+    /*public function testUniquenessOnCreate(): void
     {
         $this->browse(function ($browser) {
             $category = UnitCategory::factory()->create();
@@ -86,5 +86,5 @@ class CreateTest extends DuskTestCase
             $browser->assertSeeIn($secondBreadcrumbSelector, 'Categorias');
             $browser->assertSeeIn($thirdBreadcrumbSelector, "Nova Categoria");
         });
-    }
+    }*/
 }

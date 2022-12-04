@@ -14,12 +14,12 @@ class ShowTest extends DuskTestCase
     /** @var \App\Models\User */
     protected $user;
 
-    public function setUp(): void
+    /*public function setUp(): void
     {
         parent::setUp();
         $this->unit = Unit::factory()->create();
         $this->user = User::factory()->create();
-    }
+    }*/
 
     public function testShow(): void
     {

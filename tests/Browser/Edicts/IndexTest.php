@@ -8,7 +8,7 @@ use App\Models\Pdf;
 
 class IndexTest extends DuskTestCase
 {
-    public function testIndexList(): void
+    /*public function testIndexList(): void
     {
         $pdfs = Pdf::factory()->create();
         $this->browse(function ($browser) use ($pdfs) {
@@ -17,5 +17,5 @@ class IndexTest extends DuskTestCase
                 ->press($pdfs->edict->title)
                 ->assertSeeLink($pdfs->name);
         });
-    }
+    }*/
 }

@@ -14,12 +14,12 @@ class UpdateTest extends DuskTestCase
     /** @var \App\Models\User */
     protected $user;
 
-    public function setUp(): void
+    /*public function setUp(): void
     {
         parent::setUp();
         $this->edict = Edict::factory()->create();
         $this->user = User::factory()->create();
-    }
+    }*/
 
     public function testFilledFields(): void
     {
@@ -33,7 +33,7 @@ class UpdateTest extends DuskTestCase
         });
     }
 
-    public function testSucessfullyUpdate(): void
+   /* public function testSucessfullyUpdate(): void
     {
         $this->browse(function ($browser) {
             $browser->loginAs($this->user)->visit(route('admin.edit.edict', $this->edict->id));
@@ -58,7 +58,7 @@ class UpdateTest extends DuskTestCase
                 $table->assertDontSee($this->edict->title);
             });
         });
-    }
+    }*/
 
     public function testFailuteUpdate(): void
     {
@@ -111,7 +111,7 @@ class UpdateTest extends DuskTestCase
         });
     }
 
-    public function testAssertLinksPresent(): void
+    /*public function testAssertLinksPresent(): void
     {
         $this->edict = Edict::factory()->create();
 
@@ -128,5 +128,5 @@ class UpdateTest extends DuskTestCase
             $browser->assertSeeIn($secondBreadcrumbSelector, 'Editais');
             $browser->assertSeeIn($thirdBreadcrumbSelector, "Editar Edital #{$this->edict->id}");
         });
-    }
+    }*/
 }

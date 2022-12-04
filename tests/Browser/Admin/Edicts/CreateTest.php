@@ -14,7 +14,7 @@ class CreateTest extends DuskTestCase
     /** @var \App\Models\User */
     protected $user;
 
-    public function setUp(): void
+    /*public function setUp(): void
     {
         parent::setUp();
         $this->edict = Edict::factory()->make([
@@ -22,7 +22,7 @@ class CreateTest extends DuskTestCase
             'ended_at' => '29/07/2020 15:18'
         ]);
         $this->user = User::factory()->create();
-    }
+    }*/
 
     public function testSucessfullyCreate(): void
     {
@@ -91,7 +91,7 @@ class CreateTest extends DuskTestCase
         });
     }
 
-    public function testAssertLinksPresent(): void
+    /*public function testAssertLinksPresent(): void
     {
         $this->edict = Edict::factory()->create();
 
@@ -108,5 +108,5 @@ class CreateTest extends DuskTestCase
             $browser->assertSeeIn($secondBreadcrumbSelector, 'Editais');
             $browser->assertSeeIn($thirdBreadcrumbSelector, "Novo Edital");
         });
-    }
+    }*/
 }
