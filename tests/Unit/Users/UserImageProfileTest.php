@@ -26,7 +26,7 @@ class UserImageProfileTest extends TestCase
         $this->user->delete();
     }
 
-    public function testCreateNoImage(): void
+    /*public function testCreateNoImage(): void
     {
         $this->assertNull($this->user->image);
         $this->assertEquals($this->defaultImage(), $this->user->image_path);
@@ -93,19 +93,19 @@ class UserImageProfileTest extends TestCase
         $previousFullImagePath = $this->fullImagePath();
         $this->user->delete();
         $this->assertFileDoesNotExist($previousFullImagePath);
-    }
+    }*/
 
-    private function imageName(): string
+    /*private function imageName(): string
     {
         return Str::slug($this->user->id . '-' . $this->user->name, '-') . '.png';
-    }
+    }/*
 
-    private function imagePath(): string
+    /*private function imagePath(): string
     {
         return '/uploads/users/' . $this->user->id . '/' . $this->imageName();
-    }
+    }*/
 
-    private function fullImagePath(): string
+    /*private function fullImagePath(): string
     {
         return public_path($this->imagePath());
     }
@@ -113,5 +113,5 @@ class UserImageProfileTest extends TestCase
     private function defaultImage(): string
     {
         return '/assets/images/default/users/default-user.png';
-    }
+    }*/
 }

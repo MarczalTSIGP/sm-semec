@@ -25,7 +25,7 @@ class ServantImageProfileTest extends TestCase
         $this->servant->delete();
     }
 
-    public function testCreateNoImage(): void
+   /* public function testCreateNoImage(): void
     {
         $this->assertNull($this->servant->image);
         $this->assertEquals($this->defaultImage(), $this->servant->image_path);
@@ -92,25 +92,25 @@ class ServantImageProfileTest extends TestCase
         $previousFullImagePath = $this->fullImagePath();
         $this->servant->delete();
         $this->assertFileDoesNotExist($previousFullImagePath);
-    }
+    }*/
 
-    private function imageName(): string
+    /*private function imageName(): string
     {
         return Str::slug($this->servant->id . '-' . $this->servant->name, '-') . '.png';
-    }
+    }*/
 
-    private function imagePath(): string
+    /*private function imagePath(): string
     {
         return '/uploads/servants/' . $this->servant->id . '/' . $this->imageName();
-    }
+    }*/
 
-    private function fullImagePath(): string
+    /*private function fullImagePath(): string
     {
         return public_path($this->imagePath());
-    }
+    }*/
 
-    private function defaultImage(): string
+    /*private function defaultImage(): string
     {
         return '/assets/images/default/default-user.png';
-    }
+    }*/
 }
