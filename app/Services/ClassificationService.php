@@ -61,12 +61,13 @@ class ClassificationService
     }
 
     /**
-    *
+    *@param int $edictId
     * @return mixed
     */
-    public function calculaterank()
+    public function calculaterank($edictId)
     {
         $classifications = Classification::where('occupied_vacancy', false)
+                                         ->where('edict_id', $edictId)
                                          ->orderBy('worked_days', 'desc')
                                          ->orderBy('formation_points', 'desc')
                                          ->orderBy('worked_days_unit', 'desc')
@@ -79,6 +80,7 @@ class ClassificationService
             $classification->save();
             $count++;
         }
+
         return;
     }
 
@@ -106,10 +108,16 @@ class ClassificationService
                             . $inscription->contract->servant_id;
                     }
                     $edictUnit->update();
+                    $this->increaseVacancyInTheUnit($inscription);
+                    $classification = Classification::where('inscription_id', $inscription->id)->first();
+                    $classification->occupied_vacancy = true;
+                    $classification->update();
                     return;
                 }
             }
         }
+        return redirect()->route('admin.new.vacant_unit', ['edict' => $inscription->edict])
+                            ->with('danger', 'Não há vagas cadastradas para as unidades de interesse.');
     }
 
     /**

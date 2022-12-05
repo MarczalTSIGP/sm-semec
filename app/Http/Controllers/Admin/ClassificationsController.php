@@ -51,7 +51,7 @@ class ClassificationsController extends AppController
 
         $classification = new Classification($data);
         $classification->save();
-        $classificationService->calculateRank();
+        $classificationService->calculateRank($classification->edict_id);
 
         return;
     }
@@ -67,10 +67,8 @@ class ClassificationsController extends AppController
         $inscription = Inscription::find($classification->inscription_id);
 
         $classificationService->decreaseVacancyInUnitOfInterest($inscription);
-        $classificationService->increaseVacancyInTheUnit($inscription);
-        $classification->occupied_vacancy = true;
         $classification->save();
-        $classificationService->calculateRank();
+        $classificationService->calculateRank($classification->edict_id);
 
         return $this->index($classification->edict_id);
     }

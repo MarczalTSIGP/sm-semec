@@ -169,6 +169,18 @@ class EdictsController extends AppController
                               ->where('unit_id', $data['unit_id'])
                               ->where('type_of_vacancy', 'registered')
                               ->first();
+
+        $validator = Validator::make($data, [
+            'edict_id' => 'required|exists:edicts,id',
+            'unit_id'  => 'required|exists:units,id',
+            'number_vacancies'  => 'required|integer',
+         ]);
+
+        if ($validator->fails()) {
+            return redirect()->route('admin.new.vacant_unit', ['edict' => $edict])
+                            ->with('danger', 'Existem dados incorretos, verifique!');
+        }
+
         if ($edictUnit) {
             $edictUnit->number_vacancies = $data['number_vacancies'];
             $edictUnit->update();

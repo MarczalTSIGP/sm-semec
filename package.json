@@ -25,6 +25,7 @@
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
+        "dependencies": "^0.0.1",
         "jquery-mask-plugin": "^1.14.16",
         "moment": "^2.27.0",
         "selectize": "^0.12.6"

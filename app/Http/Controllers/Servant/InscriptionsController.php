@@ -11,6 +11,7 @@ use App\Models\Unit;
 use App\Models\RemovalType;
 use App\Models\Contract;
 use App\Http\Controllers\Admin\ClassificationsController;
+use DB;
 
 class InscriptionsController extends AppController
 {
@@ -105,18 +106,34 @@ class InscriptionsController extends AppController
             ])->withErrors($validator);
         }
 
-        $this->edict->inscriptions()->save($inscription);
-        $inscription->interestedUnits()->attach($request->interested_unit_ids);
+        DB::beginTransaction();
+        try {
+            $this->edict->inscriptions()->save($inscription);
+            $inscription->interestedUnits()->attach($request->interested_unit_ids);
 
-        $classfication = [
-            'inscription_id' => $inscription->id,
-            'edict_id'       => $this->edict->id,
-        ];
+            $classfication = [
+                'inscription_id' => $inscription->id,
+                'edict_id'       => $this->edict->id,
+            ];
 
-        $classficationController = new ClassificationsController();
-        $classficationController->create($classfication, $inscription);
+            $classficationController = new ClassificationsController();
+            $classficationController->create($classfication, $inscription);
 
-        return redirect()->route('servant.dashboard')->with('success', 'Inscrição realizada com sucesso!');
+            DB::commit();
+
+            return redirect()->route('servant.dashboard')->with('success', 'Inscrição realizada com sucesso!');
+        } catch (\Exception $e) {
+            DB::rollback();
+
+            return view('servant.edicts.inscriptions.new', [
+                'edict' => $this->edict,
+                'servant' => $servant,
+                'contracts' => $servant->contracts,
+                'units' => Unit::orderBy('name', 'ASC')->get(),
+                'removal_types' => RemovalType::all(),
+                'inscription' => $inscription
+            ])->with('danger', 'Existem dados incorretos! Por favor verifique!');
+        }
     }
 
     /**
