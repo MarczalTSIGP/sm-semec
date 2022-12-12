@@ -157,7 +157,7 @@ class EdictsController extends AppController
         $edictUnit = new EdictUnit();
         return view('admin.edicts.edicts_units.new', [
             'edict' => $edict,
-            'edictUnit' => $edictUnit,      
+            'edictUnit' => $edictUnit,
             'units' => $units,
             'edictUnits' => $edictUnits,
         ]);
@@ -166,7 +166,7 @@ class EdictsController extends AppController
     /**
     *
     * @param  \App\Models\Edict  $edict
-    * @return \Illuminate\Http\RedirectResponse
+    * @return \Illuminate\View\View | \Illuminate\Http\RedirectResponse
     *
     */
     public function createVancanciesInUnit(Request $request, $edict)
@@ -192,15 +192,11 @@ class EdictsController extends AppController
             $units = Unit::orderBy('name', 'ASC')->get();
             $classificationController = new ClassificationsController();
             $edictUnits = $classificationController->mountedArray($edict->id);
-            return view('admin.edicts.edicts_units.new', 
-                        [
-                          'edict' => $edict,
-                          'edictUnit' => $edictUnit,
-                          'edictUnits' => $edictUnits,
-                          'units' => $units
-                        ])->withErrors($validator);
-            #return redirect()->route('admin.new.vacant_unit', ['edict' => $edict, 'edictUnit' => $edictUnit])
-            #                ->with('danger', 'Existem dados incorretos, verifique!')->withErrors($validator);
+            return view('admin.edicts.edicts_units.new', [
+                    'edict' => $edict,
+                    'edictUnit' => $edictUnit,
+                    'edictUnits' => $edictUnits,
+                    'units' => $units])->withErrors($validator);
         }
 
         if ($edictUnit) {

@@ -16,24 +16,24 @@ class Edicts extends Command
    *
    * @var string
    */
-  protected $signature = 'populate:edicts';
+    protected $signature = 'populate:edicts';
 
   /**
    * The console command description.
    *
    * @var string
    */
-  protected $description = 'Populate edicts';
+    protected $description = 'Populate edicts';
 
   /**
    * Create a new command instance.
    *
    * @return void
    */
-  public function __construct()
-  {
-    parent::__construct();
-  }
+    public function __construct()
+    {
+        parent::__construct();
+    }
 
     /**
      * Execute the console command.
@@ -47,21 +47,21 @@ class Edicts extends Command
             return;
         }
 
-    $this->info('Populate edicts');
-    DB::table('edicts')->delete();
+        $this->info('Populate edicts');
+        DB::table('edicts')->delete();
 
-    $currentDay = now()->day;
-    $currentMonth = now()->month;
-    $currentYear = now()->year;
+        $currentDay = now()->day;
+        $currentMonth = now()->month;
+        $currentYear = now()->year;
 
-    $nextDay = now()->addDays()->day;
+        $nextDay = now()->addDays()->day;
 
-    for ($i = 0; $i < 5; $i++) {
-      $year = $currentYear - $i;
-      $startedAt = "{$currentDay}/{$currentMonth}/{$year} 00:00";
-      $endedAt = "{$nextDay}/{$currentMonth}/{$year} 23:59";
+        for ($i = 0; $i < 5; $i++) {
+            $year = $currentYear - $i;
+            $startedAt = "{$currentDay}/{$currentMonth}/{$year} 00:00";
+            $endedAt = "{$nextDay}/{$currentMonth}/{$year} 23:59";
 
-      $edict = Edict::factory()->create(['started_at' => $startedAt, 'ended_at' => $endedAt]);
+            $edict = Edict::factory()->create(['started_at' => $startedAt, 'ended_at' => $endedAt]);
 
             $edict->pdfs()->save(Pdf::factory()->make(['edict_id' => $edict->id]));
             $edict->pdfs()->save(Pdf::factory()->make(['edict_id' => $edict->id]));
