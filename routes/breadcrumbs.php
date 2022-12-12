@@ -156,6 +156,10 @@ Breadcrumbs::for('admin.new.vacant_unit', function ($trail, $id) {
     $trail->push('Cadastro de vagas por unidade Edital #'.$id, route('admin.new.vacant_unit', $id));
 });
 
+Breadcrumbs::for('admin.create.vacant_unit', function ($trail, $id) {
+    $trail->parent('admin.edicts');
+    $trail->push('Cadastro de vagas por unidade Edital #'.$id, route('admin.new.vacant_unit', $id));
+});
 
 /* Pdfs Edict
 |-------------------------------------------------------------------------- */

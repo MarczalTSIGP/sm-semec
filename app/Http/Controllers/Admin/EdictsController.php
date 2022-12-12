@@ -153,8 +153,11 @@ class EdictsController extends AppController
         $units = Unit::orderBy('name', 'ASC')->get();
         $classificationController = new ClassificationsController();
         $edictUnits = $classificationController->mountedArray($edict->id);
+
+        $edictUnit = new EdictUnit();
         return view('admin.edicts.edicts_units.new', [
             'edict' => $edict,
+            'edictUnit' => $edictUnit,      
             'units' => $units,
             'edictUnits' => $edictUnits,
         ]);
@@ -184,8 +187,20 @@ class EdictsController extends AppController
          ]);
 
         if ($validator->fails()) {
-            return redirect()->route('admin.new.vacant_unit', ['edict' => $edict])
-                            ->with('danger', 'Existem dados incorretos, verifique!');
+            $edictUnit = new EdictUnit($data);
+            $edict =  Edict::find($edict);
+            $units = Unit::orderBy('name', 'ASC')->get();
+            $classificationController = new ClassificationsController();
+            $edictUnits = $classificationController->mountedArray($edict->id);
+            return view('admin.edicts.edicts_units.new', 
+                        [
+                          'edict' => $edict,
+                          'edictUnit' => $edictUnit,
+                          'edictUnits' => $edictUnits,
+                          'units' => $units
+                        ])->withErrors($validator);
+            #return redirect()->route('admin.new.vacant_unit', ['edict' => $edict, 'edictUnit' => $edictUnit])
+            #                ->with('danger', 'Existem dados incorretos, verifique!')->withErrors($validator);
         }
 
         if ($edictUnit) {
