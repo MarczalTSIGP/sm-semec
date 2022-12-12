@@ -20,7 +20,6 @@ class Edict extends Model
         'description',
         'started_at',
         'ended_at',
-        'number_vacancies',
     ];
 
     protected $dates = [

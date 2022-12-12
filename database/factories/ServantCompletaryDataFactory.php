@@ -29,7 +29,7 @@ class ServantCompletaryDataFactory extends Factory
         return [
             'formation_id'  => Formation::factory(),
             'observation' => $this->faker->text(),
-            'contract_id' => $this->faker->unique()->numberBetween(1, Contract::count()),
+            'contract_id' => Contract::factory(),
             'workload_id'  => Workload::factory(),
         ];
     }

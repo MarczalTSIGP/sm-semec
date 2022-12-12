@@ -34,7 +34,7 @@ class ActFactory extends Factory
             'number' => $this->faker->randomNumber(),
             'time' => $this->faker->randomNumber(),
             'number' => $this->faker->randomNumber(),
-            'contract_id' => $this->faker->unique()->numberBetween(1, Contract::count()),
+            'contract_id' => Contract::count(),
         ];
     }
 }

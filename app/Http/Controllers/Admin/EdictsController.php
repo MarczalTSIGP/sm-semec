@@ -144,6 +144,12 @@ class EdictsController extends AppController
     {
 
         $edict =  Edict::find($id);
+        $today = \Carbon\Carbon::now();
+
+        if ($edict->ended_at < $today) {
+            return redirect()->back();
+        }
+
         $units = Unit::orderBy('name', 'ASC')->get();
         $classificationController = new ClassificationsController();
         $edictUnits = $classificationController->mountedArray($edict->id);
@@ -162,6 +168,7 @@ class EdictsController extends AppController
     */
     public function createVancanciesInUnit(Request $request, $edict)
     {
+
         $data = $request->all();
         $data['edict_id'] = $edict;
 

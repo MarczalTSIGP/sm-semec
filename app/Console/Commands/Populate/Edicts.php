@@ -5,7 +5,9 @@ namespace App\Console\Commands\Populate;
 use Illuminate\Console\Command;
 use DB;
 use App\Models\Edict;
+use App\Models\Unit;
 use App\Models\Pdf;
+use App\Models\EdictUnit;
 
 class Edicts extends Command
 {
@@ -38,7 +40,7 @@ class Edicts extends Command
      *
      * @return mixed
      */
-   /* public function handle()
+    public function handle()
     {
         if (\App::environment('production')) {
             $this->info('This task can not be run in production because it will erase de database');
@@ -61,8 +63,15 @@ class Edicts extends Command
 
             $edict = Edict::factory()->create(['started_at' => $startedAt, 'ended_at' => $endedAt]);
 
-            $edict->pdfs()->save(Pdf::factory()->make(['edict_id' => $edict['id']]));
-            $edict->pdfs()->save(Pdf::factory()->make(['edict_id' => $edict['id']]));
+            $edict->pdfs()->save(Pdf::factory()->make(['edict_id' => $edict->id]));
+            $edict->pdfs()->save(Pdf::factory()->make(['edict_id' => $edict->id]));
+
+            Unit::inRandomOrder()->limit(rand(1, 5))->get()->each(function ($unit) use ($edict) {
+                EdictUnit::create(['edict_id' => $edict->id,
+                                   'unit_id' => $unit->id,
+                                   'number_vacancies' => rand(1, 20),
+                                   'type_of_vacancy' => 'registered']);
+            });
         }
-    }*/
+    }
 }

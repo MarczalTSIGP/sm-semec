@@ -64,7 +64,7 @@ class ClassificationService
     *@param int $edictId
     * @return mixed
     */
-    public function calculaterank($edictId)
+    public function calculateRank($edictId)
     {
         $classifications = Classification::where('occupied_vacancy', false)
                                          ->where('edict_id', $edictId)

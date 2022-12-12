@@ -129,7 +129,7 @@ Route::namespace('Admin')->group(function () {
 
 	    /* Classifications resources
 	|----------------------------------------------------------------------------*/
-	Route::get('/edicts/{id}/classifications', 			       ['as' => 'admin.classifications',        'uses' => 'ClassificationsController@index']);
+	Route::get('admin/edicts/{id}/classifications', 			       ['as' => 'admin.classifications',        'uses' => 'ClassificationsController@index']);
 	Route::post('/edicts/{id}/classifications/update', 			       ['as' => 'admin.update.classifications',        'uses' => 'ClassificationsController@updateVacancyOccupation']);
 });
 
