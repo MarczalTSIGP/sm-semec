@@ -37,6 +37,7 @@ abstract class DuskTestCase extends BaseTestCase
         }
         $opts[] = '--disable-gpu';
         $opts[] = '--incognito';
+        $opts[] = '--ignore-certificate-errors';
         $opts[] = '--window-size=1280,720';
 
         $chromeOptions = (new ChromeOptions())->addArguments($opts);

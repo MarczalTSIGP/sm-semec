@@ -133,7 +133,7 @@ jobs:
 
       - name: Setup php-fpm
         env:
-          version: 7.4
+          version: 8.1.16
         run: |
           sudo cp /usr/sbin/php-fpm$version /usr/bin/php-fpm
           sudo sed -i 's|listen = /run/php/php7.4-fpm.sock|listen = 0.0.0.0:9000|g' /etc/php/7.4/fpm/pool.d/www.conf
@@ -151,6 +151,7 @@ jobs:
       - name: Prepare the app
         run: |
           cp .env.ci .env
+          cp .env.dusk.local.example .env.dusk.local
           php artisan key:generate
           php artisan config:clear
           php artisan route:clear
