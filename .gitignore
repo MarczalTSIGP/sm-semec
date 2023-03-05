@@ -2,13 +2,15 @@
 # PHP
 ################
 .env
+.env.dusk.local
 .env.backup
 .phpunit.result.cache
+phpunit.dusk.xml.bak
 Homestead.json
 Homestead.yaml
 /public/hot
 /public/storage
-/storage/*.key
+/storage/*.key	
 /vendor
 /report
 /build

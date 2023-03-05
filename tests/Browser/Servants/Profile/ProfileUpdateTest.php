@@ -23,14 +23,14 @@ class ProfileUpdateTest extends DuskTestCase
         $this->browse(function ($browser) {
             $browser->loginAs($this->servant, 'servant')->visit('/servant');
             $browser->click('div.header a.nav-link')
-                    ->clickLink('Meu Perfil')
-                    ->type('name', 'Servidor1')
-                    ->type('email', 'servant1@gmail.com')
-                    ->attach('image', $this->servant->image = UploadedFile::fake()->image('avatar.png'))
-                    ->type('current_password', 'password')
-                    ->driver->executeScript('window.scrollTo(0, 400);');
+                ->clickLink('Meu Perfil')
+                ->type('name', 'Servidor1')
+                ->type('email', 'servant1@gmail.com')
+                ->attach('image', $this->servant->image = UploadedFile::fake()->image('avatar.png'))
+                ->type('current_password', 'password')
+                ->driver->executeScript('window.scrollTo(0, 400);');
 
-                    $browser->press('Atualizar');
+            $browser->press('Atualizar');
 
             $browser->with('div.alert', function ($flash) {
                 $flash->assertSee('Perfil atualizado com sucesso');
@@ -43,14 +43,14 @@ class ProfileUpdateTest extends DuskTestCase
         $this->browse(function ($browser) {
             $browser->loginAs($this->servant, 'servant')->visit('/servant');
             $browser->click('div.header a.nav-link')
-                    ->clickLink('Meu Perfil')
-                    ->type('name', 'Servidor1')
-                    ->type('email', 'servant1gmail.com')
-                    ->attach('image', $this->servant->image = UploadedFile::fake()->image('avatar.png'))
-                    ->type('current_password', 'password1')
-                    ->driver->executeScript('window.scrollTo(0, 400);');
+                ->clickLink('Meu Perfil')
+                ->type('name', 'Servidor1')
+                ->type('email', 'servant1gmail.com')
+                ->attach('image', $this->servant->image = UploadedFile::fake()->image('avatar.png'))
+                ->type('current_password', 'password1')
+                ->driver->executeScript('window.scrollTo(0, 400);');
 
-                    $browser->press('Atualizar');
+            $browser->press('Atualizar');
 
             $browser->with('div.alert', function ($flash) {
                 $flash->assertSee('Existem dados incorretos! Por favor verifique!');

@@ -29,9 +29,9 @@ class ResetPasswordTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser) {
             $browser->visit('/servant/password/reset')
-            ->type('email', $this->servant->email)
-            ->click('.btn-block')
-            ->assertPathIs('/servant/password/reset');
+                ->type('email', $this->servant->email)
+                ->click('.btn-block')
+                ->assertPathIs('/servant/password/reset');
 
             $browser->with('div.alert', function ($flash) {
                 $flash->assertSee('Enviamos seu link de redefinição de senha por e-mail!');
@@ -50,25 +50,25 @@ class ResetPasswordTest extends DuskTestCase
             $email = $this->servant->email;
             $createdAt = now();
             $token = Password::broker()->createToken($this->servant);
-            $data = array('email' => $email,"token" => Hash::make($token),"created_at" => $createdAt);
+            $data = array('email' => $email, "token" => Hash::make($token), "created_at" => $createdAt);
             DB::table('password_resets')->insert($data);
 
             $link = '/servant/password/reset/' . $token . '?email=' . urlencode($email);
 
             /*Change password*/
             $browser->visit('/' . $link)
-            ->type('password', 'password1')
-            ->type('password_confirmation', 'password1')
-            ->press('Modificar Senha')
-            ->waitForLocation('/servant')
-            ->click('div.header a.nav-link')
-            ->clickLink('Sair');
+                ->type('password', 'password1')
+                ->type('password_confirmation', 'password1')
+                ->press('Modificar Senha')
+                ->waitForLocation('/servant')
+                ->click('div.header a.nav-link')
+                ->clickLink('Sair');
 
             /*Check if the token is valid after modifying password*/
             $browser->visit('/' . $link)
-            ->type('password', 'password1')
-            ->type('password_confirmation', 'password1')
-            ->press('Modificar Senha');
+                ->type('password', 'password1')
+                ->type('password_confirmation', 'password1')
+                ->press('Modificar Senha');
 
             $browser->with('span.invalid-feedback', function ($flash) {
                 $flash->assertSee('Este token de redefinição de senha é inválido.');
@@ -76,10 +76,10 @@ class ResetPasswordTest extends DuskTestCase
 
             /*Check if the user's password has been changed*/
             $browser->visit('/servant/login')
-            ->type('CPF', $this->servant->CPF)
-            ->type('password', 'password1')
-            ->press('Entrar')
-            ->assertPathIs('/servant');
+                ->type('CPF', $this->servant->CPF)
+                ->type('password', 'password1')
+                ->press('Entrar')
+                ->assertPathIs('/servant');
 
             $browser->with('div.alert', function ($flash) {
                 $flash->assertSee('Login efetuado com sucesso.');

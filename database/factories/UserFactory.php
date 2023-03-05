@@ -9,22 +9,25 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 use Faker\Generator as Faker;
 use Illuminate\Support\Str;
 
+/**
+ * @method User create(mixed $parameters = [])
+ * @method User make(mixed $parameters = [])
+ */
 class UserFactory extends Factory
 {
 
     /**
-    * The name of the factory's corresponding model.
-    *
-    * @var string
-    */
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
     protected $model = User::class;
 
     /**
-    * Define the model's default state.
-    *
-    * @return array
-    */
-
+     * Define the model's default state.
+     *
+     * @return array
+     */
     public function definition()
     {
         return [

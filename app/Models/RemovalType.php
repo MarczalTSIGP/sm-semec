@@ -7,11 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class RemovalType extends Model
 {
-     use HasFactory;
-
-    /**
-     * @var array
-     */
+    use HasFactory;
 
     protected $fillable = [
         'name'

@@ -2,7 +2,6 @@
 
 namespace Tests\Browser\Admin\ServantCompletaryData\Movements;
 
-use Laravel\Dusk\Browser;
 use Tests\DuskTestCase;
 use App\Models\User;
 use App\Models\Unit;
@@ -36,19 +35,16 @@ class CreateTest extends DuskTestCase
     {
         $this->browse(function ($browser) {
             $browser->loginAs($this->user)->visit(route('admin.new.movement', ['servant_id' =>
-                $this->completaryData->contract->servant_id, 'contract_id' =>
-                $this->completaryData->contract_id, 'id' => $this->completaryData->id]));
+            $this->completaryData->contract->servant_id, 'contract_id' =>
+            $this->completaryData->contract_id, 'id' => $this->completaryData->id]));
 
             $unit = $this->units->first();
 
-            $browser->type('occupation', 'Teste');
-            $browser->radio('span.custom-control-label', 'morning')
-            ->waitFor('#movement_unit_id-selectized')
-            ->click('div.movement_unit_id #movement_unit_id-selectized')
-            ->click("div.movement_unit_id .selectize-dropdown .option[data-value='{$unit->id}']");
-            $browser->type('started_at', '28/07/2020 15:18');
-
-            $browser->press('Criar Movimentação');
+            $browser->type('occupation', 'Teste')
+                ->radio('span.custom-control-label', 'morning')
+                ->selectize('movement_unit_id', $unit->id)
+                ->type('started_at', '28/07/2020 15:18')
+                ->press('Criar Movimentação');
 
             $browser->with('div.alert', function ($flash) {
                 $flash->assertSee('Movimentação adicionada com sucesso');
@@ -86,14 +82,16 @@ class CreateTest extends DuskTestCase
         $this->movement = Movement::factory()->create();
 
         $this->browse(function ($browser) {
-            $browser->loginAs($this->user)->visit(route('admin.new.movement', ['servant_id' =>
+            $browser->loginAs($this->user)->visit(route('admin.new.movement', [
+                'servant_id' =>
                 $this->movement->servantCompletaryData->contract->servant_id,
                 'contract_id' => $this->movement->servantCompletaryData->contract_id, 'id' =>
-                $this->movement->servantCompletaryData->id]));
+                $this->movement->servantCompletaryData->id
+            ]));
 
             $backLinkSelector = "#main-card a[href='" . route('admin.index.completary_datas', ['servant_id' =>
-                $this->movement->servantCompletaryData->contract->servant_id, 'id' =>
-                $this->movement->servantCompletaryData->contract_id]) . "']";
+            $this->movement->servantCompletaryData->contract->servant_id, 'id' =>
+            $this->movement->servantCompletaryData->contract_id]) . "']";
             $browser->assertSeeIn($backLinkSelector, 'Voltar');
 
             $rootBreadcrumbSelector = ".breadcrumb-item a[href='" . route('admin.dashboard') . "']";

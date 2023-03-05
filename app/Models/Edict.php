@@ -12,9 +12,6 @@ class Edict extends Model
     use DateTimeFormatter;
     use HasFactory;
 
-    /**
-     * @var array
-     */
     protected $fillable = [
         'title',
         'description',
@@ -28,24 +25,24 @@ class Edict extends Model
     ];
 
     /**
-    * @return \Illuminate\Database\Eloquent\Relations\HasMany
-    */
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function pdfs()
     {
         return $this->hasMany(Pdf::class, 'edict_id');
     }
 
     /**
-    * @return \Illuminate\Database\Eloquent\Relations\HasMany
-    */
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function inscriptions()
     {
         return $this->hasMany(Inscription::class, 'edict_id');
     }
 
     /**
-    * @return $this
-    */
+     * @return $this
+     */
     public function saveWithoutEvents(array $options = [])
     {
         return static::withoutEvents(function () use ($options) {
@@ -55,22 +52,22 @@ class Edict extends Model
 
     /**
      * @param string $term
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+     * @return \Illuminate\Pagination\LengthAwarePaginator
      */
     public static function search($term)
     {
         if ($term) {
             $searchTerm = "%{$term}%";
             return Edict::where('title', 'LIKE', $searchTerm)
-            ->orderBy('started_at', 'desc')
-            ->paginate(20);
+                ->orderBy('started_at', 'desc')
+                ->paginate(20);
         }
         return Edict::orderBy('started_at', 'desc')->paginate(20);
     }
 
     /**
      * @param string $term
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+     * @return \Illuminate\Pagination\LengthAwarePaginator
      */
     public static function searchOpen($term)
     {
@@ -79,18 +76,18 @@ class Edict extends Model
             return Edict::where([
                 ['ended_at', '>=', Carbon::now()->toDateTimeString()],
                 ['title', 'LIKE', $searchTerm],
-                 ])
+            ])
                 ->orderBy('started_at', 'desc')
                 ->paginate(20);
         }
         return Edict::where('ended_at', '>=', Carbon::now()->toDateTimeString())
-                      ->orderBy('started_at', 'desc')
-                      ->paginate(20);
+            ->orderBy('started_at', 'desc')
+            ->paginate(20);
     }
 
     /**
      * @param string $term
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+     * @return \Illuminate\Pagination\LengthAwarePaginator
      */
     public static function searchClose($term)
     {
@@ -98,12 +95,13 @@ class Edict extends Model
             $searchTerm = "%{$term}%";
             return Edict::where([
                 ['ended_at', '<=', Carbon::now()->toDateTimeString()],
-                ['title', 'LIKE', $searchTerm],])
+                ['title', 'LIKE', $searchTerm],
+            ])
                 ->orderBy('started_at', 'desc')
                 ->paginate(20);
         }
         return Edict::where('ended_at', '<=', Carbon::now()->toDateTimeString())
-                      ->orderBy('started_at', 'desc')
-                      ->paginate(20);
+            ->orderBy('started_at', 'desc')
+            ->paginate(20);
     }
 }

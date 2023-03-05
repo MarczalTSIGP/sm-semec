@@ -16,7 +16,7 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: 7.4
+          php-version: 8.1.16
           extensions: curl, dom, fileinfo, filter, iconv, json, libxml, mbstring, openssl, pcntl, pcre, pdo, simplexml, tokenizer, xml, xmlwriter, zip, pdo_mysql
           tools: composer:v2
 
@@ -47,7 +47,7 @@ jobs:
           MYSQL_DATABASE: sm_semec
           MYSQL_USER: sm-semec
           MYSQL_PASSWORD: sm-semec
-          MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+          MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
         ports:
           - 3306:3306
@@ -59,7 +59,7 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: 7.4
+          php-version: 8.1.16
           extensions: curl, dom, fileinfo, filter, iconv, json, libxml, mbstring, openssl, pcntl, pcre, pdo, simplexml, tokenizer, xml, xmlwriter, zip, pdo_mysql
           tools: composer:v2
 
@@ -89,6 +89,11 @@ jobs:
       - name: Run units tests
         run: |
           php artisan test
+        env:
+          MAIL_USERNAME: ${{ secrets.MAIL_USERNAME }}
+          MAIL_PASSWORD: ${{ secrets.MAIL_PASSWORD }}
+          MAIL_ENCRYPTION: ${{ secrets.MAIL_ENCRYPTION }}
+          MAIL_FROM_ADDRESS: ${{ secrets.MAIL_FROM_ADDRESS }}
 
   dusks:
     runs-on: ubuntu-latest
@@ -106,7 +111,7 @@ jobs:
           MYSQL_DATABASE: sm_semec_test
           MYSQL_USER: sm-semec
           MYSQL_PASSWORD: sm-semec
-          MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+          MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
         ports:
           - 3306:3306
@@ -122,7 +127,7 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: 7.4
+          php-version: 8.1.16
           extensions: curl, dom, fileinfo, filter, iconv, json, libxml, mbstring, openssl, pcntl, pcre, pdo, simplexml, tokenizer, xml, xmlwriter, zip, pdo_mysql
           tools: composer:v2
 
@@ -153,7 +158,7 @@ jobs:
 
       - uses: actions/setup-node@v2
         with:
-          node-version: '14.17.0'
+          node-version: "14.17.0"
 
       - name: Install npm dependencies
         run: |
@@ -181,6 +186,10 @@ jobs:
           php artisan dusk
         env:
           SELENIUM_HOST: 127.0.0.1
+          MAIL_USERNAME: ${{ secrets.MAIL_USERNAME }}
+          MAIL_PASSWORD: ${{ secrets.MAIL_PASSWORD }}
+          MAIL_ENCRYPTION: ${{ secrets.MAIL_ENCRYPTION }}
+          MAIL_FROM_ADDRESS: ${{ secrets.MAIL_FROM_ADDRESS }}
 
       - name: Upload screenshots
         if: failure()

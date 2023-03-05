@@ -3,28 +3,31 @@
 namespace Database\Factories;
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
+
 use App\Models\Contract;
 use App\Models\Servant;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 use Faker\Generator as Faker;
 
+/**
+ * @method Contract create(mixed $parameters = [])
+ * @method Contract make(mixed $parameters = [])
+ */
 class ContractFactory extends Factory
 {
-
     /**
-    * The name of the factory's corresponding model.
-    *
-    * @var string
-    */
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
     protected $model = Contract::class;
 
     /**
-    * Define the model's default state.
-    *
-    * @return array
-    */
-
+     * Define the model's default state.
+     *
+     * @return array
+     */
     public function definition()
     {
         return [

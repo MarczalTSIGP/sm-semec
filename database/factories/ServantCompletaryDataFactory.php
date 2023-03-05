@@ -9,6 +9,10 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 use Faker\Generator as Faker;
 
+/**
+ * @method ServantCompletaryData create(mixed $parameters = [])
+ * @method ServantCompletaryData make(mixed $parameters = [])
+ */
 class ServantCompletaryDataFactory extends Factory
 {
     /**

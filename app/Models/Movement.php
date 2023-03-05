@@ -12,9 +12,6 @@ class Movement extends Model
     use DateTimeFormatter;
     use HasFactory;
 
-    /**
-    * @var array
-    */
     protected $fillable = [
         'period',
         'occupation',
@@ -30,16 +27,16 @@ class Movement extends Model
     ];
 
     /**
-    * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-    */
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function servantCompletaryData()
     {
         return $this->belongsTo(ServantCompletaryData::class, 'servant_completary_data_id');
     }
 
     /**
-    * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-    */
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function unit()
     {
         return $this->belongsTo(Unit::class, 'unit_id');

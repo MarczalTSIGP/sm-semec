@@ -26,10 +26,10 @@ class LoginTest extends DuskTestCase
     {
         $this->browse(function ($browser) {
             $browser->visit('/admin/login')
-                    ->type('CPF', $this->user->CPF)
-                    ->type('password', 'password')
-                    ->press('Entrar')
-                    ->assertPathIs('/admin');
+                ->type('CPF', $this->user->CPF)
+                ->type('password', 'password')
+                ->press('Entrar')
+                ->assertPathIs('/admin');
 
             $browser->with('div.alert', function ($flash) {
                 $flash->assertSee('Login efetuado com sucesso.');
@@ -46,10 +46,10 @@ class LoginTest extends DuskTestCase
     {
         $this->browse(function ($browser) {
             $browser->visit('/admin/login')
-                    ->type('CPF', $this->user->CPF)
-                    ->type('password', 'wrong-password')
-                    ->press('Entrar')
-                    ->assertPathIs('/admin/login');
+                ->type('CPF', $this->user->CPF)
+                ->type('password', 'wrong-password')
+                ->press('Entrar')
+                ->assertPathIs('/admin/login');
 
             $browser->with('div.alert', function ($flash) {
                 $flash->assertSee('Usuário ou senha incorretas.');

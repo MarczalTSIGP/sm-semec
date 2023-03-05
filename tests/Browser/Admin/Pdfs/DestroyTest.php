@@ -33,7 +33,7 @@ class DestroyTest extends DuskTestCase
 
             $browser->with("table.table tbody", function ($row) {
                 $row->assertSee($this->pdf->name);
-                $row->click('button')
+                $row->waitFor('button')->click('button')
                     ->acceptDialog()
                     ->assertDontSee($this->pdf->name);
             });

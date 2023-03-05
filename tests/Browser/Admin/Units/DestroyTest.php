@@ -28,7 +28,7 @@ class DestroyTest extends DuskTestCase
 
             $browser->with("table.table tbody", function ($row) {
                 $row->assertSee($this->unit->name);
-                $row->click('button')
+                $row->waitFor('button')->click('button')
                     ->acceptDialog()
                     ->assertDontSee($this->unit->name);
             });

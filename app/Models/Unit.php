@@ -10,9 +10,6 @@ class Unit extends Model
 {
     use HasFactory;
 
-     /**
-     * @var array
-     */
     protected $fillable = [
         'name',
         'address',
@@ -20,7 +17,7 @@ class Unit extends Model
         'category_id',
     ];
 
-     /**
+    /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function category()
@@ -30,15 +27,15 @@ class Unit extends Model
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-    */
+     */
     public function inscriptions()
     {
         return $this->belongsToMany(Inscription::class, 'inscription_units', 'inscription_id', 'unit_id');
     }
 
-     /**
+    /**
      * @param string $term
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+     * @return \Illuminate\Pagination\LengthAwarePaginator
      */
     public static function search($term)
     {
@@ -53,8 +50,8 @@ class Unit extends Model
     }
 
     /**
-    * @return \Illuminate\Database\Eloquent\Relations\HasMany
-    */
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function moviments()
     {
         return $this->hasMany(Movement::class, 'unit_id');
