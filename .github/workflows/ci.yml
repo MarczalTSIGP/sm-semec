@@ -214,6 +214,8 @@ jobs:
           # change file permissions of existing files and folders to 755/644
           sudo find /var/www -type d -exec chmod g=rwxs "{}" \;
           sudo find /var/www -type f -exec chmod g=rws "{}" \;
+          sudo chmod -R 755 /var/www/public
+
           docker restart ${{ job.services.webserver.id }}
 
       - name: Run dusk tests
