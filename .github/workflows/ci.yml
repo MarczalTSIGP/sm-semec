@@ -5,6 +5,7 @@ on:
   push:
     branches:
       - master
+      - github-actions-v2
 jobs:
   quality:
     runs-on: ubuntu-latest
@@ -37,6 +38,7 @@ jobs:
           php -d memory_limit=3G vendor/bin/phpstan analyse -c phpstan.neon
   units:
     runs-on: ubuntu-latest
+    environment: testing
     env:
       DB_HOST: 127.0.0.1
       DB_PORT: 3306
@@ -90,13 +92,18 @@ jobs:
         run: |
           php artisan test
         env:
+          MAIL_FROM_ADDRESS: ${{ vars.MAIL_FROM_ADDRESS }}
+          MAIL_FROM_NAME: ${{ vars.MAIL_FROM_NAME }}
           MAIL_USERNAME: ${{ secrets.MAIL_USERNAME }}
           MAIL_PASSWORD: ${{ secrets.MAIL_PASSWORD }}
-          MAIL_ENCRYPTION: ${{ secrets.MAIL_ENCRYPTION }}
-          MAIL_FROM_ADDRESS: ${{ secrets.MAIL_FROM_ADDRESS }}
+          MAIL_ENCRYPTION: ${{ vars.MAIL_ENCRYPTION }}
+          MAIL_DRIVER: ${{ vars.DRIVER }}
+          MAIL_HOST: ${{ vars.MAIL_HOST }}
+          MAIL_PORT: ${{ vars.MAIL_PORT }}
 
   dusks:
     runs-on: ubuntu-latest
+    environment: testing
     services:
       webserver:
         image: nginx:alpine
@@ -153,7 +160,25 @@ jobs:
         run: |
           cp .env.ci .env
           cp .env.dusk.local.example .env.dusk.local
+
+          sed -i 's|DB_HOST=db|DB_HOST=app|g' .env.dusk.local
+
+          # Setup email credetials. dusk doens't get right direct from action env
+          sed -i '/MAIL*/d' .env.dusk.local
+          echo "
+          MAIL_FROM_ADDRESS=${{ vars.MAIL_FROM_ADDRESS }}
+          MAIL_FROM_NAME=${{ vars.MAIL_FROM_NAME }}
+          MAIL_USERNAME=${{ secrets.MAIL_USERNAME }}
+          MAIL_PASSWORD=${{ secrets.MAIL_PASSWORD }}
+          MAIL_ENCRYPTION=${{ vars.MAIL_ENCRYPTION }}
+          MAIL_DRIVER=${{ vars.DRIVER }}
+          MAIL_HOST=${{ vars.MAIL_HOST }}
+          MAIL_PORT=${{ vars.MAIL_PORT }}
+          " >> .env.dusk.local
+          cat .env.dusk.local
+
           php artisan dusk:chrome-driver
+
           php artisan key:generate
           php artisan config:clear
           php artisan route:clear
@@ -178,27 +203,26 @@ jobs:
       - name: Copy files to /var/www
         run: |
           sudo cp -r . /var/www/
+
           # Adding current user to www-data
           sudo adduser $USER www-data
+
           # change ownership to user:www-data and
           sudo chown $USER:www-data -R /var/www
           sudo chmod u=rwX,g=srX,o=rX -R /var/www
+
           # change file permissions of existing files and folders to 755/644
           sudo find /var/www -type d -exec chmod g=rwxs "{}" \;
           sudo find /var/www -type f -exec chmod g=rws "{}" \;
+          sudo chmod -R 755 /var/www/public
           docker restart ${{ job.services.webserver.id }}
 
       - name: Run dusk tests
         run: |
           cd /var/www
-          sed -i 's|DB_HOST=db|DB_HOST=app|g' .env.dusk.local
           php artisan dusk
         env:
           SELENIUM_HOST: app
-          MAIL_USERNAME: ${{ secrets.MAIL_USERNAME }}
-          MAIL_PASSWORD: ${{ secrets.MAIL_PASSWORD }}
-          MAIL_ENCRYPTION: ${{ secrets.MAIL_ENCRYPTION }}
-          MAIL_FROM_ADDRESS: ${{ secrets.MAIL_FROM_ADDRESS }}
 
       - name: Upload screenshots
         if: failure()
