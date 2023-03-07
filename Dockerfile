@@ -43,7 +43,7 @@ RUN docker-php-ext-enable xdebug
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 # NODEJS NVM ---------------------------------------------------------------------------------------------------------------
-ARG NODE_VERSION=14.17.0
+ARG NODE_VERSION=18.14.2
 ARG NVM_DIR=/usr/local/nvm
 
 # https://github.com/creationix/nvm#install-script
@@ -81,20 +81,20 @@ ENV VENDOR_PATH /vendor
 # The users of the group staff can install executables in /usr/local/bin and /usr/local/sbin without root privileges
 RUN addgroup --gid $GROUP_ID ${_USER}
 RUN adduser  --disabled-password --gecos '' --uid $USER_ID --gid $GROUP_ID ${_USER} \
-  && usermod -a -G sudo ${_USER} \
-  && usermod -a -G staff ${_USER} \
-  && echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers \
-  && echo "${_USER}:${_USER}" | chpasswd
+    && usermod -a -G sudo ${_USER} \
+    && usermod -a -G staff ${_USER} \
+    && echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers \
+    && echo "${_USER}:${_USER}" | chpasswd
 
 
 # Configure the main working directory. This is the base
 # directory used in any further RUN, COPY, and ENTRYPOINT commands.
 RUN mkdir -p $HOME \
-  && mkdir -p $APP \
-  && mkdir -p $VENDOR_PATH \
-  && chown -R ${_USER}:${_USER} $HOME \
-  && chown -R ${_USER}:${_USER} $VENDOR_PATH \
-  && chown -R ${_USER}:${_USER} $APP
+    && mkdir -p $APP \
+    && mkdir -p $VENDOR_PATH \
+    && chown -R ${_USER}:${_USER} $HOME \
+    && chown -R ${_USER}:${_USER} $VENDOR_PATH \
+    && chown -R ${_USER}:${_USER} $APP
 
 # Copy existing application directory contents
 COPY . $APP

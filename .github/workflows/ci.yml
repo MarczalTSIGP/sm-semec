@@ -9,14 +9,14 @@ jobs:
   quality:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           ref: ${{ github.event.pull_request.head.sha }}
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: 8.1.16
+          php-version: 8.1
           extensions: curl, dom, fileinfo, filter, iconv, json, libxml, mbstring, openssl, pcntl, pcre, pdo, simplexml, tokenizer, xml, xmlwriter, zip, pdo_mysql
           tools: composer:v2
 
@@ -52,14 +52,14 @@ jobs:
         ports:
           - 3306:3306
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           ref: ${{ github.event.pull_request.head.sha }}
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: 8.1.16
+          php-version: 8.1
           extensions: curl, dom, fileinfo, filter, iconv, json, libxml, mbstring, openssl, pcntl, pcre, pdo, simplexml, tokenizer, xml, xmlwriter, zip, pdo_mysql
           tools: composer:v2
 
@@ -120,23 +120,24 @@ jobs:
         ports:
           - 4444:4444
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           ref: ${{ github.event.pull_request.head.sha }}
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: 8.1.16
+          php-version: 8.1
           extensions: curl, dom, fileinfo, filter, iconv, json, libxml, mbstring, openssl, pcntl, pcre, pdo, simplexml, tokenizer, xml, xmlwriter, zip, pdo_mysql
           tools: composer:v2
 
       - name: Setup php-fpm
         env:
-          version: 8.1.16
+          version: 8.1
         run: |
-          sudo cp /usr/sbin/php-fpm$version /usr/bin/php-fpm
-          sudo sed -i 's|listen = /run/php/php7.4-fpm.sock|listen = 0.0.0.0:9000|g' /etc/php/7.4/fpm/pool.d/www.conf
+          # sudo cp /usr/sbin/php-fpm-$version /usr/bin/php-fpm
+          sudo sed -i 's|listen = /run/php/php8.1-fpm.sock|listen = 0.0.0.0:9000|g' /etc/php/$version/fpm/pool.d/www.conf
+          sudo systemctl daemon-reload
           sudo service php$version-fpm restart
           sudo service php$version-fpm status
 
@@ -152,14 +153,15 @@ jobs:
         run: |
           cp .env.ci .env
           cp .env.dusk.local.example .env.dusk.local
+          php artisan dusk:chrome-driver
           php artisan key:generate
           php artisan config:clear
           php artisan route:clear
           php artisan cache:clear
 
-      - uses: actions/setup-node@v2
+      - uses: actions/setup-node@v3
         with:
-          node-version: "14.17.0"
+          node-version: "18.14.2"
 
       - name: Install npm dependencies
         run: |
@@ -175,18 +177,24 @@ jobs:
 
       - name: Copy files to /var/www
         run: |
-          sudo cp -arp . /var/www/
-          sudo chmod -R 666 /var/www/storage
-          sudo chmod -R 666 /var/www/bootstrap/cache
+          sudo cp -r . /var/www/
+          # Adding current user to www-data
+          sudo adduser $USER www-data
+          # change ownership to user:www-data and
+          sudo chown $USER:www-data -R /var/www
+          sudo chmod u=rwX,g=srX,o=rX -R /var/www
+          # change file permissions of existing files and folders to 755/644
+          sudo find /var/www -type d -exec chmod g=rwxs "{}" \;
+          sudo find /var/www -type f -exec chmod g=rws "{}" \;
           docker restart ${{ job.services.webserver.id }}
 
       - name: Run dusk tests
         run: |
           cd /var/www
-          sudo sed -i 's|DB_HOST=db|DB_HOST=127.0.0.1|g' .env.dusk.local
+          sed -i 's|DB_HOST=db|DB_HOST=app|g' .env.dusk.local
           php artisan dusk
         env:
-          SELENIUM_HOST: 127.0.0.1
+          SELENIUM_HOST: app
           MAIL_USERNAME: ${{ secrets.MAIL_USERNAME }}
           MAIL_PASSWORD: ${{ secrets.MAIL_PASSWORD }}
           MAIL_ENCRYPTION: ${{ secrets.MAIL_ENCRYPTION }}
@@ -194,20 +202,20 @@ jobs:
 
       - name: Upload screenshots
         if: failure()
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: screenshots
           path: tests/Browser/screenshots
 
       - name: Upload console logs
         if: failure()
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: console
           path: tests/Browser/console
 
       - name: Upload laravel logs
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         if: failure()
         with:
           name: laravel-logs
