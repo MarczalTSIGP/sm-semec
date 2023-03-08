@@ -5,7 +5,6 @@ on:
   push:
     branches:
       - master
-      - github-actions-v2
 jobs:
   quality:
     runs-on: ubuntu-latest
@@ -163,7 +162,8 @@ jobs:
 
           sed -i 's|DB_HOST=db|DB_HOST=app|g' .env.dusk.local
 
-          # Setup email credetials. dusk doens't get right direct from action env
+          # Setup email credetials. Dusk doens't get right direct from action env
+          # because it replace .env file
           sed -i '/MAIL*/d' .env.dusk.local
           echo "
           MAIL_FROM_ADDRESS=${{ vars.MAIL_FROM_ADDRESS }}
@@ -175,7 +175,6 @@ jobs:
           MAIL_HOST=${{ vars.MAIL_HOST }}
           MAIL_PORT=${{ vars.MAIL_PORT }}
           " >> .env.dusk.local
-          cat .env.dusk.local
 
           php artisan dusk:chrome-driver
 
@@ -209,12 +208,11 @@ jobs:
 
           # change ownership to user:www-data and
           sudo chown $USER:www-data -R /var/www
-          sudo chmod u=rwX,g=srX,o=rX -R /var/www
+          sudo chmod u=rwX,g=srwX,o=rX -R /var/www
 
           # change file permissions of existing files and folders to 755/644
           sudo find /var/www -type d -exec chmod g=rwxs "{}" \;
           sudo find /var/www -type f -exec chmod g=rws "{}" \;
-          sudo chmod -R 755 /var/www/public
 
           docker restart ${{ job.services.webserver.id }}
 
