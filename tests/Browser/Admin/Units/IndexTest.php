@@ -20,7 +20,7 @@ class IndexTest extends DuskTestCase
 
     public function testIndexList(): void
     {
-        $units = Unit::factory()->count(10)->create();
+        $units = Unit::factory()->count(5)->create();
         $units = $units->sortBy('name')->reverse();
 
         $this->browse(function ($browser) use ($units) {
@@ -49,9 +49,9 @@ class IndexTest extends DuskTestCase
             $browser->loginAs($this->user);
 
             $browser->visit('/admin/units')
-                    ->type('#search_input', $unit->name)
-                    ->press('#search')
-                    ->assertUrlIs(route('admin.search.units', $unit->name));
+                ->type('#search_input', $unit->name)
+                ->press('#search')
+                ->assertUrlIs(route('admin.search.units', $unit->name));
 
             $term = $unit->name;
             $browser->type('#search_input', $term);

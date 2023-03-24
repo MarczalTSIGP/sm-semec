@@ -8,18 +8,17 @@ use App\Models\Edict;
 
 class DateTimeFormatterTest extends TestCase
 {
-
     public function testFormat(): void
     {
-        $user = Edict::factory()->make();
+        $edict = Edict::factory()->make();
 
-        $user->started_at = '13/08/2020 01:54';
-        $user->ended_at = '07/08/2020 01:54';
-        $user->save();
+        $edict->started_at = '13/08/2020 01:54';
+        $edict->ended_at = '07/08/2020 01:54';
+        $edict->save();
 
-        $user->refresh();
+        $edict->refresh();
 
-        $this->assertEquals($user->started_at->format('d/m/Y H:i'), '13/08/2020 01:54');
-        $this->assertEquals($user->ended_at->format('d/m/Y H:i'), '07/08/2020 01:54');
+        $this->assertEquals($edict->started_at->format('d/m/Y H:i'), '13/08/2020 01:54');
+        $this->assertEquals($edict->ended_at->format('d/m/Y H:i'), '07/08/2020 01:54');
     }
 }

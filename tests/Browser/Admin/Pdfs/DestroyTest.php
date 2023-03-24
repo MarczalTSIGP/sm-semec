@@ -22,18 +22,17 @@ class DestroyTest extends DuskTestCase
         parent::setUp();
         $this->edict = Edict::factory()->create();
         $this->user = User::factory()->create();
-        $this->pdf = Pdf::factory()->create();
+        $this->pdf = Pdf::factory()->create(['edict_id' => $this->edict->id]);
     }
 
     public function testDestroy(): void
     {
         $this->browse(function ($browser) {
             $browser->loginAs($this->user)->visit(route('admin.index.pdf', $this->edict->id));
-            $browser->loginAs($this->user)->visit('/admin/edicts/2/pdfs');
 
             $browser->with("table.table tbody", function ($row) {
                 $row->assertSee($this->pdf->name);
-                $row->click('button')
+                $row->waitFor('button')->click('button')
                     ->acceptDialog()
                     ->assertDontSee($this->pdf->name);
             });

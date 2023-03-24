@@ -10,9 +10,6 @@ class License extends Model
 {
     use HasFactory;
 
-    /**
-     * @var array
-     */
     protected $fillable = [
         'started_at',
         'ended_at',

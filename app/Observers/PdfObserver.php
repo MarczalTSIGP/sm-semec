@@ -4,7 +4,7 @@ namespace App\Observers;
 
 use App\Models\Pdf;
 use Illuminate\Support\Str;
-use File;
+use Illuminate\Support\Facades\Storage;
 
 class PdfObserver
 {
@@ -20,28 +20,28 @@ class PdfObserver
     }
 
     /**
-    * Handle the pdf "deleted" event.
-    *
-    * @param  \App\Models\Pdf $pdf
-    * @return void
-    */
+     * Handle the pdf "deleted" event.
+     *
+     * @param  \App\Models\Pdf $pdf
+     * @return void
+     */
     public function deleted(Pdf $pdf)
     {
         $this->deletePdfFile($pdf);
     }
 
     /**
-    * Delete a pdf from file.
-    *
-    * @param  \App\Models\Pdf $pdf
-    * @return void
-    */
+     * Delete a pdf from file.
+     *
+     * @param  \App\Models\Pdf $pdf
+     * @return void
+     */
     private function deletePdfFile($pdf)
     {
-        $pdfDirectory = public_path('uploads/edicts/' . $pdf->edict_id);
+        $pdfDirectory = 'public/uploads/edicts/' . $pdf->edict_id;
         $pdfPath = $pdfDirectory . '/' . $pdf->pdf;
 
-        File::delete($pdfPath);
+        Storage::delete($pdfPath);
     }
 
     /**
@@ -55,9 +55,9 @@ class PdfObserver
         if ($pdf->pdf != null) {
             $date = now()->toShortDateTime();
             $pdfName = Str::slug($pdf->edict_id . '-' . $pdf->name . '-' . $date, '-') . '.' . $pdf->pdf->extension();
-            $storePath = public_path('uploads/edicts/' . $pdf->edict_id);
+            $storePath = 'uploads/edicts/' . $pdf->edict_id;
 
-            $pdf->pdf->move($storePath, $pdfName);
+            $pdf->pdf->storeAs($storePath, $pdfName, 'public');
             $pdf->pdf = $pdfName;
         }
     }

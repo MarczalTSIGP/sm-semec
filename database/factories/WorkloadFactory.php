@@ -5,6 +5,10 @@ namespace Database\Factories;
 use App\Models\Workload;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
+/**
+ * @method Workload create(mixed $parameters = [])
+ * @method Workload make(mixed $parameters = [])
+ */
 class WorkloadFactory extends Factory
 {
     /**

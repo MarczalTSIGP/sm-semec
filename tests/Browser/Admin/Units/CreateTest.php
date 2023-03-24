@@ -35,10 +35,10 @@ class CreateTest extends DuskTestCase
             $category = $this->categories->first();
 
             $browser->type('name', $this->unit->name)
-                    ->type('address', $this->unit->address)
-                    ->type('phone', $this->unit->phone)
-                    ->selectize('unit_category_id', $category->id)
-                    ->press('Criar Unidade');
+                ->type('address', $this->unit->address)
+                ->type('phone', $this->unit->phone)
+                ->selectize('unit_category_id', $category->id)
+                ->press('Criar Unidade');
 
             $browser->assertUrlIs(route('admin.units'));
             $browser->with('div.alert', function ($flash) {
@@ -83,12 +83,12 @@ class CreateTest extends DuskTestCase
             $category = $this->categories->first();
 
             $browser->type('name', $this->unit->name)
-                    ->type('address', $this->unit->address)
-                    ->type('phone', '12')
-                    ->waitFor('#unit_category_id-selectized')
-                    ->click('div.unit_category_id #unit_category_id-selectized')
-                    ->click("div.unit_category_id .selectize-dropdown .option[data-value='{$category->id}']")
-                    ->press('Criar Unidade');
+                ->type('address', $this->unit->address)
+                ->type('phone', '12')
+                ->waitFor('#unit_category_id-selectized')
+                ->click('div.unit_category_id #unit_category_id-selectized')
+                ->click("div.unit_category_id .selectize-dropdown .option[data-value='{$category->id}']")
+                ->press('Criar Unidade');
 
             $browser->with('div.alert', function ($flash) {
                 $flash->assertSee('Existem dados incorretos! Por favor verifique!');
@@ -109,12 +109,12 @@ class CreateTest extends DuskTestCase
             $category = $this->categories->first();
 
             $browser->type('name', $newData->name)
-                    ->type('address', $this->unit->address)
-                    ->type('phone', $newData->phone)
-                    ->waitFor('#unit_category_id-selectized')
-                    ->click('div.unit_category_id #unit_category_id-selectized')
-                    ->click("div.unit_category_id .selectize-dropdown .option[data-value='{$category->id}']")
-                    ->press('Criar Unidade');
+                ->type('address', $this->unit->address)
+                ->type('phone', $newData->phone)
+                ->waitFor('#unit_category_id-selectized')
+                ->click('div.unit_category_id #unit_category_id-selectized')
+                ->click("div.unit_category_id .selectize-dropdown .option[data-value='{$category->id}']")
+                ->press('Criar Unidade');
 
             $browser->with('div.alert', function ($flash) {
                 $flash->assertSee('Existem dados incorretos! Por favor verifique!');

@@ -18,9 +18,9 @@ class CreateTest extends DuskTestCase
     protected $servant;
     /** @var \App\Models\Edict */
     protected $edict;
-    /** @var \App\Models\RemovalType */
+    /** @var \Illuminate\Database\Eloquent\Collection<\App\Models\RemovalType> */
     protected $removalTypes;
-    /** @var \App\Models\Unit */
+    /** @var \Illuminate\Database\Eloquent\Collection<\App\Models\Unit> */
     protected $units;
 
     public function setUp(): void
@@ -31,7 +31,8 @@ class CreateTest extends DuskTestCase
 
         $this->edict = Edict::factory()->state([
             'started_at' => Carbon::yesterday()->toShortDateTime(),
-            'ended_at'   => Carbon::tomorrow()->toShortDateTime()])->create();
+            'ended_at'   => Carbon::tomorrow()->toShortDateTime()
+        ])->create();
 
         $this->units = Unit::factory()->count(3)->create();
         $this->removalTypes = RemovalType::factory()->count(3)->create();
@@ -44,7 +45,7 @@ class CreateTest extends DuskTestCase
 
         $this->browse(function ($browser) {
             $browser->loginAs($this->servant, 'servant')
-                    ->visit(route('servant.new.inscription', $this->edict->id));
+                ->visit(route('servant.new.inscription', $this->edict->id));
 
             $browser->assertUrlIs(route('servant.dashboard'));
 
@@ -58,7 +59,7 @@ class CreateTest extends DuskTestCase
     {
         $this->browse(function ($browser) {
             $browser->loginAs($this->servant, 'servant')
-                    ->visit(route('servant.new.inscription', $this->edict->id));
+                ->visit(route('servant.new.inscription', $this->edict->id));
 
             $this->edict->ended_at = Carbon::yesterday()->toShortDateTime();
             $this->edict->save();
@@ -76,17 +77,17 @@ class CreateTest extends DuskTestCase
     {
         $this->browse(function ($browser) {
             $browser->loginAs($this->servant, 'servant')
-                    ->visit(route('servant.new.inscription', $this->edict->id));
+                ->visit(route('servant.new.inscription', $this->edict->id));
 
             $contract = $this->servant->contracts->first();
             $removalType = $this->removalTypes->random();
             $unit = $this->units->random();
 
             $browser->selectize('inscription_contract_id', $contract->id)
-                    ->selectize('inscription_removal_type_id', $removalType->id)
-                    ->selectize('inscription_interested_unit_ids', $unit->id)
-                    ->type('reason', 'work more')
-                    ->press('Enviar');
+                ->selectize('inscription_removal_type_id', $removalType->id)
+                ->selectize('inscription_interested_unit_ids', $unit->id)
+                ->type('reason', 'work more')
+                ->press('Enviar');
 
             $browser->assertUrlIs(route('servant.dashboard'));
             $browser->with('div.alert', function ($flash) {
@@ -99,7 +100,7 @@ class CreateTest extends DuskTestCase
     {
         $this->browse(function ($browser) {
             $browser->loginAs($this->servant, 'servant')
-                    ->visit(route('servant.new.inscription', $this->edict->id));
+                ->visit(route('servant.new.inscription', $this->edict->id));
 
             $browser->press('Enviar');
 

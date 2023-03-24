@@ -2,7 +2,6 @@
 
 namespace Tests\Browser\Servants\Profile;
 
-use Laravel\Dusk\Chrome;
 use Tests\DuskTestCase;
 use App\Models\Servant;
 use Illuminate\Http\UploadedFile;
@@ -17,20 +16,23 @@ class ProfileUpdateTest extends DuskTestCase
         parent::setUp();
         $this->servant = Servant::factory('servant')->create();
     }
-
+    /**
+     * @group spec
+     */
     public function testProfiledUpdateSuccess(): void
     {
         $this->browse(function ($browser) {
             $browser->loginAs($this->servant, 'servant')->visit('/servant');
             $browser->click('div.header a.nav-link')
-                    ->clickLink('Meu Perfil')
-                    ->type('name', 'Servidor1')
-                    ->type('email', 'servant1@gmail.com')
-                    ->attach('image', $this->servant->image = UploadedFile::fake()->image('avatar.png'))
-                    ->type('current_password', 'password')
-                    ->driver->executeScript('window.scrollTo(0, 400);');
+                ->waitFor('@myProfileAction')
+                ->click('@myProfileAction')
+                ->type('name', 'Servidor1')
+                ->type('email', 'servant1@gmail.com')
+                ->attach('image', $this->servant->image = UploadedFile::fake()->image('avatar.png'))
+                ->type('current_password', 'password')
+                ->driver->executeScript('window.scrollTo(0, 400);');
 
-                    $browser->press('Atualizar');
+            $browser->press('Atualizar');
 
             $browser->with('div.alert', function ($flash) {
                 $flash->assertSee('Perfil atualizado com sucesso');
@@ -43,16 +45,17 @@ class ProfileUpdateTest extends DuskTestCase
         $this->browse(function ($browser) {
             $browser->loginAs($this->servant, 'servant')->visit('/servant');
             $browser->click('div.header a.nav-link')
-                    ->clickLink('Meu Perfil')
-                    ->type('name', 'Servidor1')
-                    ->type('email', 'servant1gmail.com')
-                    ->attach('image', $this->servant->image = UploadedFile::fake()->image('avatar.png'))
-                    ->type('current_password', 'password1')
-                    ->driver->executeScript('window.scrollTo(0, 400);');
+                ->waitFor('@myProfileAction')
+                ->click('@myProfileAction')
+                ->type('name', 'Servidor1')
+                ->type('email', 'servant1gmail.com')
+                ->attach('image', $this->servant->image = UploadedFile::fake()->image('avatar.png'))
+                ->type('current_password', 'password1')
+                ->driver->executeScript('window.scrollTo(0, 400);');
 
-                    $browser->press('Atualizar');
+            $browser->press('Atualizar');
 
-            $browser->with('div.alert', function ($flash) {
+            $browser->waitFor('div.alert')->with('div.alert', function ($flash) {
                 $flash->assertSee('Existem dados incorretos! Por favor verifique!');
             });
 

@@ -5,13 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
+/**
+ * @property \App\Models\Edict $edict
+ **/
 class Inscription extends Model
 {
     use HasFactory;
 
-    /**
-     * @var array
-     */
     protected $fillable = [
         'edict_id',
         'servant_id',
@@ -28,7 +28,7 @@ class Inscription extends Model
         return $this->belongsTo(Servant::class, 'servant_id');
     }
 
-     /**
+    /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function contract()

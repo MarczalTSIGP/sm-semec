@@ -42,14 +42,17 @@ class CreateTest extends DuskTestCase
         });
     }
 
+    /**
+     * @group spec
+     */
     public function testSuccessUploadPdf(): void
     {
         $this->browse(function ($browser) {
             $browser->loginAs($this->user)->visit(route('admin.index.pdf', $this->edict->id));
 
             $browser->type('name', 'Teste Pdf')
-            ->attach('pdf', 'tests/files/pdfs/test.pdf')
-            ->press('Adicionar PDF');
+                ->attach('pdf', 'tests/files/pdfs/test.pdf')
+                ->press('Adicionar PDF');
 
             $browser->with('div.alert', function ($flash) {
                 $flash->assertSee('PDF adicionado com sucesso');
@@ -62,8 +65,8 @@ class CreateTest extends DuskTestCase
         $this->browse(function ($browser) {
             $browser->loginAs($this->user)->visit(route('admin.index.pdf', $this->edict->id));
             $browser->type('name', 'example')
-            ->attach('pdf', 'resources/images/logo.png')
-            ->press('Adicionar PDF');
+                ->attach('pdf', 'resources/images/logo.png')
+                ->press('Adicionar PDF');
 
             $browser->with('div.alert', function ($flash) {
                 $flash->assertSee('Existem dados incorretos! Por favor verifique!');

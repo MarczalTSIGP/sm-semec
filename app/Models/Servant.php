@@ -16,9 +16,6 @@ class Servant extends Authenticatable
     use Notifiable;
     use HasFactory;
 
-    /**
-     * @var array
-     */
     protected $fillable = [
         'name',
         'birthed_at',
@@ -93,9 +90,9 @@ class Servant extends Authenticatable
     }
 
     /**
-    * @param string $value
-    * @return void
-    */
+     * @param string $value
+     * @return void
+     */
     public function setPasswordAttribute($value)
     {
         $this->attributes['password'] = Hash::make($value);
@@ -107,20 +104,20 @@ class Servant extends Authenticatable
     }
 
     /**
-    * @return string
-    */
+     * @return string
+     */
     public function getImagePathAttribute()
     {
         if ($this->getOriginal('image') == null) {
             return '/assets/images/default/default-user.png';
         }
 
-        return '/uploads/servants/' . $this->id . '/' . $this->getOriginal('image');
+        return '/storage/uploads/servants/' . $this->id . '/' . $this->getOriginal('image');
     }
 
     /**
-    * @return $this
-    */
+     * @return $this
+     */
     public function saveWithoutEvents(array $options = [])
     {
         return static::withoutEvents(function () use ($options) {
@@ -147,10 +144,10 @@ class Servant extends Authenticatable
         if ($term) {
             $searchTerm = "%{$term}%";
             return Servant::query()->with(['contracts'])
-                                   ->where('name', 'LIKE', $searchTerm)
-                                   ->orWhere('CPF', 'LIKE', $searchTerm)
-                                   ->orderBy('name', 'asc')
-                                   ->paginate(20);
+                ->where('name', 'LIKE', $searchTerm)
+                ->orWhere('CPF', 'LIKE', $searchTerm)
+                ->orderBy('name', 'asc')
+                ->paginate(20);
         }
 
         return Servant::with(['contracts'])->paginate(20);

@@ -29,13 +29,13 @@ class IndexTest extends DuskTestCase
             $browser->with("table.table tbody", function ($row) use ($inscription) {
                 $pos = 0;
 
-                    $pos += 1;
-                    $baseSelector = "tr:nth-child({$pos}) ";
-                    $route = route('servant.show.inscription', $inscription->id);
+                $pos += 1;
+                $baseSelector = "tr:nth-child({$pos}) ";
+                $route = route('servant.show.inscription', $inscription->id);
 
-                    $showSelector = $baseSelector . "a[href='" . $route . "']";
-                    $row->assertSeeIn($showSelector, $inscription->edict->title);
-                    $row->assertSeeIn($baseSelector, $inscription->contract->registration);
+                $showSelector = $baseSelector . "a[href='" . $route . "']";
+                $row->assertSeeIn($showSelector, $inscription->edict->title);
+                $row->assertSeeIn($baseSelector, $inscription->contract->registration);
             });
         });
     }

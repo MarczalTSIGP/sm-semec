@@ -36,7 +36,7 @@ class DestroyTest extends DuskTestCase
 
             $browser->with("table.table tbody", function ($row) {
                 $row->assertSee($this->movement->occupation);
-                $row->click('button')
+                $row->waitFor('button')->click('button')
                     ->acceptDialog()
                     ->assertDontSee($this->movement->occupation);
             });

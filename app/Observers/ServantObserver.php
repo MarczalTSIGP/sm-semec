@@ -4,7 +4,7 @@ namespace App\Observers;
 
 use App\Models\Servant;
 use Illuminate\Support\Str;
-use File;
+use Illuminate\Support\Facades\Storage;
 
 class ServantObserver
 {
@@ -52,13 +52,13 @@ class ServantObserver
      */
     private function deleteImageFile($servant)
     {
-        $imageDirectory = public_path('uploads/servants/' . $servant->id);
+        $imageDirectory = 'public/uploads/servants/' . $servant->id;
         $imagePath = $imageDirectory . '/' . $servant->image;
+        Storage::delete($imagePath);
 
-        File::delete($imagePath);
         $files = glob($imageDirectory . '/*');
         if (is_array($files) && count($files) === 0) {
-            File::deleteDirectory($imageDirectory);
+            Storage::deleteDirectory($imageDirectory);
         }
     }
 
@@ -72,9 +72,9 @@ class ServantObserver
     {
         if ($servant->image != null) {
             $imageName = Str::slug($servant->id . '-' . $servant->name, '-') . '.' . $servant->image->extension();
-            $storePath = public_path('uploads/servants/' . $servant->id);
+            $storePath = 'uploads/servants/' . $servant->id;
 
-            $servant->image->move($storePath, $imageName);
+            $servant->image->storeAs($storePath, $imageName, 'public');
             $servant->image = $imageName;
         }
     }

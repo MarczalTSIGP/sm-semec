@@ -10,9 +10,6 @@ class Dependent extends Model
 {
     use HasFactory;
 
-    /**
-     * @var array
-     */
     protected $fillable = [
         'name',
         'birthed_at',
