@@ -5,7 +5,6 @@ on:
   push:
     branches:
       - master
-      - upgrade-laravel-to-9x-and-libs
 jobs:
   quality:
     runs-on: ubuntu-latest
