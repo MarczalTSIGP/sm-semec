@@ -4,7 +4,7 @@ namespace App\Observers;
 
 use App\Models\User;
 use Illuminate\Support\Str;
-use File;
+use Illuminate\Support\Facades\Storage;
 
 class UserObserver
 {
@@ -52,13 +52,13 @@ class UserObserver
      */
     private function deleteImageFile($user)
     {
-        $imageDirectory = public_path('uploads/users/' . $user->id);
+        $imageDirectory = 'public/uploads/users/' . $user->id;
         $imagePath = $imageDirectory  . '/' . $user->image;
+        Storage::delete($imagePath);
 
-        File::delete($imagePath);
         $files = glob($imageDirectory . '/*');
         if (is_array($files) && count($files) === 0) {
-            File::deleteDirectory($imageDirectory);
+            Storage::deleteDirectory($imageDirectory);
         }
     }
 
@@ -72,9 +72,9 @@ class UserObserver
     {
         if ($user->image != null) {
             $imageName = Str::slug($user->id . '-' . $user->name, '-') . '.' . $user->image->extension();
-            $storePath = public_path('uploads/users/' . $user->id);
+            $storePath = 'uploads/users/' . $user->id;
 
-            $user->image->move($storePath, $imageName);
+            $user->image->storeAs($storePath, $imageName, 'public');
             $user->image = $imageName;
         }
     }

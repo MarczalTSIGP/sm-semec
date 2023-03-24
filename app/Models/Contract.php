@@ -10,9 +10,6 @@ class Contract extends Model
 {
     use HasFactory;
 
-    /**
-     * @var array
-     */
     protected $fillable = [
         'registration',
         'admission_at',
@@ -54,8 +51,8 @@ class Contract extends Model
     }
 
     /**
-    * @return \Illuminate\Database\Eloquent\Relations\HasOne
-    */
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
     public function servantCompletaryData()
     {
         return $this->hasOne(ServantCompletaryData::class);

@@ -21,35 +21,39 @@ class IndexTest extends DuskTestCase
         $this->edict = Edict::factory()->create();
         $this->user = User::factory()->create();
     }
-
+    /**
+     * @group spec
+     */
     public function testIndexList(): void
     {
-        $pdfs = Pdf::factory()->create();
+        $pdfs = Pdf::factory()->count(2)->create(['edict_id' => $this->edict->id]);
 
         $this->browse(function ($browser) use ($pdfs) {
-            $browser->loginAs($this->user)->visit('/admin/edicts/2/pdfs');
+            $browser->loginAs($this->user)->visit("/admin/edicts/{$this->edict->id}/pdfs");
 
             $browser->with("table.table tbody", function ($row) use ($pdfs) {
                 $pos = 0;
+                foreach ($pdfs as $pdf) {
                     $pos += 1;
                     $baseSelector = "tr:nth-child({$pos}) ";
-                    $route = route('admin.show.pdf', ['edict_id' => $pdfs->edict->id, 'id' => $pdfs->id]);
+                    $route = route('admin.show.pdf', ['edict_id' => $this->edict->id, 'id' => $pdf->id]);
 
                     $showSelector = $baseSelector . "a[href='" . $route . "']";
-                    $row->assertSeeIn($showSelector, $pdfs->name);
-                    $row->assertSeeIn($baseSelector, $pdfs->edict->title);
-                    $row->assertSeeIn($baseSelector, $pdfs->created_at->toShortDateTime());
-                    $row->assertSeeIn($baseSelector, $pdfs->updated_at->toShortDateTime());
+                    $row->assertSeeIn($showSelector, $pdf->name);
+                    $row->assertSeeIn($baseSelector, $pdf->edict->title);
+                    $row->assertSeeIn($baseSelector, $pdf->created_at->toShortDateTime());
+                    $row->assertSeeIn($baseSelector, $pdf->updated_at->toShortDateTime());
 
-                    $deleteSelector = $baseSelector . "form[action='" . route('admin.destroy.pdf', $pdfs->id) . "']";
+                    $deleteSelector = $baseSelector . "form[action='" . route('admin.destroy.pdf', $pdf->id) . "']";
                     $row->assertPresent($deleteSelector);
+                }
             });
         });
     }
 
     public function testAssertLinksPresent(): void
     {
-        Pdf::factory()->create();
+        Pdf::factory()->create(['edict_id' => $this->edict->id]);
 
         $this->browse(function ($browser) {
             $browser->loginAs($this->user)->visit(route('admin.index.pdf', $this->edict->id));

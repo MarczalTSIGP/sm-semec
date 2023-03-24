@@ -3,28 +3,32 @@
 namespace Database\Factories;
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
+
 use App\Models\Unit;
 use App\Models\UnitCategory;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 use Faker\Generator as Faker;
 
+/**
+ * @method Unit create(mixed $parameters = [])
+ * @method Unit make(mixed $parameters = [])
+ */
 class UnitFactory extends Factory
 {
 
     /**
-    * The name of the factory's corresponding model.
-    *
-    * @var string
-    */
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
     protected $model = Unit::class;
 
     /**
-    * Define the model's default state.
-    *
-    * @return array
-    */
-
+     * Define the model's default state.
+     *
+     * @return array
+     */
     public function definition()
     {
         return [

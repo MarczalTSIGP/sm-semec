@@ -77,8 +77,8 @@ class CreateTest extends DuskTestCase
             $browser->loginAs($this->user)->visit(route('admin.new.edict'));
 
             $browser->type('started_at', '28/07/2020 15:18')
-                    ->type('ended_at', '27/07/2020 15:18')
-                    ->press('Criar Edital');
+                ->type('ended_at', '27/07/2020 15:18')
+                ->press('Criar Edital');
 
             $browser->assertUrlIs(route('admin.edicts'));
             $browser->with('div.alert', function ($flash) {

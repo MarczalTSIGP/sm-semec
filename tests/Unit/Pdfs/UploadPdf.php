@@ -17,7 +17,8 @@ class UploadPdf extends TestCase
     {
         parent::setUp();
         $this->pdf = Pdf::factory()->make([
-        'pdf' => UploadedFile::fake()->create('document.pdf', 'application/pdf')]);
+            'pdf' => UploadedFile::fake()->create('document.pdf', 'application/pdf')
+        ]);
     }
 
     public function tearDown(): void
@@ -27,10 +28,10 @@ class UploadPdf extends TestCase
 
     public function testPathToFile(): void
     {
-         $this->pdf->pdf = UploadedFile::fake()->create('document.pdf');
-         $this->pdf->save();
+        $this->pdf->pdf = UploadedFile::fake()->create('document.pdf');
+        $this->pdf->save();
 
-         $this->assertEquals($this->pdf->pathToFile(), $this->fullPdfPath());
+        $this->assertEquals($this->pdf->pathToFile(), $this->fullPdfPath());
     }
 
     public function testAddFileAfterCreatingEdict(): void

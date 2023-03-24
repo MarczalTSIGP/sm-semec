@@ -3,7 +3,6 @@
 namespace Tests\Browser\Admin\Session;
 
 use App\Models\User;
-use Laravel\Dusk\Chrome;
 use Tests\DuskTestCase;
 
 class LogoutTest extends DuskTestCase
@@ -19,8 +18,9 @@ class LogoutTest extends DuskTestCase
         $this->browse(function ($browser) use ($user) {
             $browser->loginAs($user)->visit('/admin');
             $browser->click('div.header a.nav-link')
-                    ->clickLink('Sair')
-                    ->assertPathIs('/admin/login');
+                ->waitFor('div.header a#logout')
+                ->click('div.header a#logout')
+                ->assertPathIs('/admin/login');
         });
     }
 }

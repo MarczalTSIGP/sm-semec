@@ -101,7 +101,7 @@ class ServantImageProfileTest extends TestCase
 
     private function imagePath(): string
     {
-        return '/uploads/servants/' . $this->servant->id . '/' . $this->imageName();
+        return '/storage/uploads/servants/' . $this->servant->id . '/' . $this->imageName();
     }
 
     private function fullImagePath(): string

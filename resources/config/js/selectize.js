@@ -1,6 +1,6 @@
-$(function(){
-  $('.custom-select').selectize();
-  $('.custom-select-multiple').selectize({
-    maxItems: 3
-  });
+$(function () {
+    $(".custom-select").selectize();
+    $(".custom-select-multiple").selectize({
+        maxItems: 3,
+    });
 });

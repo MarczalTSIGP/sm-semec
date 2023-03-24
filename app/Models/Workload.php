@@ -9,16 +9,13 @@ class Workload extends Model
 {
     use HasFactory;
 
-    /**
-    * @var array
-    */
     protected $fillable = [
         'hours'
     ];
 
     /**
-    * @return \Illuminate\Database\Eloquent\Relations\HasOne
-    */
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
     public function servantCompletaryDatas()
     {
         return $this->hasOne(ServantCompletaryData::class);

@@ -75,7 +75,7 @@ class User extends Authenticatable
             return '/assets/images/default/users/default-user.png';
         }
 
-        return '/uploads/users/' . $this->id . '/' . $this->getOriginal('image');
+        return '/storage/uploads/users/' . $this->id . '/' . $this->getOriginal('image');
     }
 
     public function saveWithoutEvents(array $options = [])

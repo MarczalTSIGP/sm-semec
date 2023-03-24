@@ -7,6 +7,10 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Unit;
 use App\Models\ServantCompletaryData;
 
+/**
+ * @method Movement create(mixed $parameters = [])
+ * @method Movement make(mixed $parameters = [])
+ */
 class MovementFactory extends Factory
 {
     /**

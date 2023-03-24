@@ -7,7 +7,6 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Str;
 use App\Models\User;
-use File;
 
 class UserImageProfileTest extends TestCase
 {
@@ -101,7 +100,7 @@ class UserImageProfileTest extends TestCase
 
     private function imagePath(): string
     {
-        return '/uploads/users/' . $this->user->id . '/' . $this->imageName();
+        return '/storage/uploads/users/' . $this->user->id . '/' . $this->imageName();
     }
 
     private function fullImagePath(): string
