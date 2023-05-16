@@ -29,6 +29,8 @@ class CreateVacanciesInEdictsTest extends TestCase
             'available_vacancies' => 10,
         ];
 
+        EdictUnit::create($requestData);
+
         $results = [
             'edict_id' => $requestData['edict_id'],
             'unit_id' => $requestData['unit_id'],
