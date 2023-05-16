@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Support\Facades\Validator;
 use App\Models\Edict;
+use App\Models\Unit;
+use App\Models\EdictUnit;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Admin\AppController;
 
@@ -125,5 +127,49 @@ class EdictsController extends AppController
         $edict = Edict::find($id);
         $edict->delete();
         return redirect()->route('admin.edicts')->with('success', 'Edital removido com sucesso.');
+    }
+
+     /**
+     * Show the form for creating a new resource.
+     *
+     * @param  \App\Models\Edict $id
+     * @return \Illuminate\View\View
+     */
+    public function newVacancieInEdicts($id)
+    {
+        $edictUnit = new Unit();
+        $edict = Edict::find($id);
+        $units = Unit::all();
+
+        return view('admin.edicts.vacancies.new', compact(['units', 'edict', 'edictUnit']));
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     * @param  \Illuminate\Http\Request  $request
+     * @return  \Illuminate\View\View | \Illuminate\Http\RedirectResponse.
+     */
+    public function createVacancieInEdicts(Request $request)
+    {
+        $data = $request->all();
+        $units = Unit::all();
+
+        $validator = Validator::make($data, [
+            'edict_id' => 'required|exists:edicts,id',
+            'unit_id'  => 'required|exists:units,id',
+            'available_vacancies'  => 'required|integer',
+        ]);
+
+        $data['type_of_vacancy'] = 'REGISTERED';
+
+        $edictUnit = new EdictUnit($data);
+        if ($validator->fails()) {
+            $edict = Edict::find($data['edict_id']);
+            $request->session()->now('danger', 'Existem dados incorretos! Por favor verifique!');
+            return view('admin.edicts.vacancies.new', compact(['units', 'edictUnit', 'edict']))->withErrors($validator);
+        }
+
+        $edictUnit->save();
+        return redirect()->route('admin.edicts')->with('success', 'Vagas cadastradas com sucesso!');
     }
 }
