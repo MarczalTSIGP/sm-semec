@@ -141,6 +141,18 @@ Breadcrumbs::for('admin.search.edicts.page', function ($trail) {
     $trail->push('Editais', route('admin.edicts'));
 });
 
+/* Vacancies by edicts resources
+|-------------------------------------------------------------------------- */
+Breadcrumbs::for('admin.new.vacancies', function ($trail, $id) {
+    $trail->parent('admin.edicts');
+    $trail->push('Cadastrar vagas no edital #'.$id, route('admin.new.vacancies', $id));
+});
+
+Breadcrumbs::for('admin.create.vacancies', function ($trail) {
+    $trail->parent('admin.edicts');
+    $trail->push('Cadastrar vagas no edital', route('admin.create.vacancies'));
+});
+
 /* Pdfs Edict
 |-------------------------------------------------------------------------- */
 Breadcrumbs::for('admin.index.pdf', function ($trail, $id) {
