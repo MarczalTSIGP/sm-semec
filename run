@@ -94,7 +94,7 @@ function dusk {
 }
 
 function tests {
-   artisan test
+   artisan test "${@}"
 }
 
 function tests:migrate {

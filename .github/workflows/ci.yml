@@ -1,10 +1,11 @@
 name: CI
 on:
-  pull_request_target:
-    types: [assigned, opened, synchronize, reopened]
+  #pull_request_target:
+  #  types: [assigned, opened, synchronize, reopened]
   push:
     branches:
       - master
+      - feature/edicts-units
 jobs:
   quality:
     runs-on: ubuntu-latest
@@ -91,6 +92,17 @@ jobs:
         run: |
           php artisan test
         env:
+          APP_NAME: Laravel Testing
+          APP_ENV: testing
+          APP_KEY: base64:nxo8OJOYZ9YyRtlpv8kWwNXcY0YO4Z4kolja1Z4ZxV4=
+          APP_DEBUG: false
+          APP_URL: http://localhost
+          DB_CONNECTION: mysql
+          DB_HOST: db
+          DB_PORT: 3306
+          DB_DATABASE: sm_semec_test
+          DB_USERNAME: sm-semec
+          DB_PASSWORD: sm-semec            
           MAIL_FROM_ADDRESS: ${{ vars.MAIL_FROM_ADDRESS }}
           MAIL_FROM_NAME: ${{ vars.MAIL_FROM_NAME }}
           MAIL_USERNAME: ${{ secrets.MAIL_USERNAME }}
