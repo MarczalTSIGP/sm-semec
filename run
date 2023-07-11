@@ -1,0 +1,127 @@
+#!/usr/bin/env bash
+# https://github.com/nickjj/docker-rails-example/blob/main/run
+
+set -o errexit
+set -o pipefail
+
+DC="${DC:-exec}"
+
+# If we're running in CI we need to disable TTY allocation for docker compose
+# commands that enable it by default, such as exec and run.
+TTY=""
+if [[ ! -t 1 ]]; then
+  TTY="-T"
+fi
+
+# -----------------------------------------------------------------------------
+# Helper functions start with _ and aren't listed in this script's help menu.
+# -----------------------------------------------------------------------------
+
+function _dc {
+  docker compose "${DC}" ${TTY} "${@}"
+}
+
+function _build_run_down {
+  docker compose build
+  docker compose run ${TTY} "${@}"
+  docker compose down
+}
+
+# -----------------------------------------------------------------------------
+# Other commands
+# artisan key:generate
+# 
+# artisan storage:link 
+#
+# artisan migrate
+# artisan db:seed
+# artisan populate
+# artisan migrate --env=testing
+# artisan migrate:fresh --env=testing
+#
+# artisan dusk:chrome-driver
+# -----------------------------------------------------------------------------
+
+# Docker commands
+# -----------------------------------------------------------------------------
+function ps {
+  docker compose ps "${@}"
+}
+
+function cmd {
+  # Run any command you want in the app container
+  _dc app "${@}"
+}
+
+# NPM commands
+# -----------------------------------------------------------------------------
+function npm {
+  cmd npm "${@}"
+}
+
+function npm:run:dev {
+  # better remove old before
+  # rm -rf public/assets
+  npm run dev
+}
+
+# PHP/Laravel commands
+# -----------------------------------------------------------------------------
+function composer {
+  cmd composer "${@}"
+}
+
+function artisan {
+  cmd php artisan "${@}"
+}
+
+# https://dev.to/kenfai/laravel-artisan-cache-commands-explained-41e1
+function clear:cache {
+  artisan config:clear
+  artisan route:clear
+  artisan cache:clear
+  artisan view:clear
+}
+
+function linters {
+  cmd vendor/bin/phpcs --standard=phpcs.xml ./
+  cmd vendor/bin/phpmd app,config,resources,routes,tests ansi phpmd.xml
+  cmd php -d memory_limit=3G vendor/bin/phpstan analyse -c phpstan.neon
+}
+
+function dusk {
+   artisan dusk "${@}"
+}
+
+function tests {
+   artisan test
+}
+
+function tests:migrate {
+  artisan migrate:fresh --env=testing
+}
+
+# Database commands
+# -----------------------------------------------------------------------------
+function mysql {
+ _dc db mysql -u sm-semec -psm-semec sm_semec
+}
+
+# Bash commands
+# -----------------------------------------------------------------------------
+function shell {
+  # Start a shell session in the web container
+  cmd bash "${@}"
+}
+
+function help {
+  printf "%s <task> [args]\n\nTasks:\n" "${0}"
+
+  compgen -A function | grep -v "^_" | cat -n
+
+  printf "\nExtended help:\n  Each task has comments for general usage\n"
+}
+
+# This idea is heavily inspired by: https://github.com/adriancooney/Taskfile
+TIMEFORMAT=$'\nTask completed in %3lR'
+time "${@:-help}"
