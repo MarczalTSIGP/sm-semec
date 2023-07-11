@@ -20,7 +20,6 @@ class CreateVacanciesInEdictsTest extends TestCase
     public function testCreateVacancieInEdicts(): void
     {
         $edict =  Edict::factory()->create();
-
         $unit =  Unit::factory()->create();
 
         $requestData = [
