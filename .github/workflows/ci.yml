@@ -71,7 +71,7 @@ jobs:
         run: |
           cp .env.ci .env
           echo "
-          APP_NAME=Laravel Testing
+          APP_NAME=Laravel_Testing
           APP_ENV=testing
           APP_KEY=base64:nxo8OJOYZ9YyRtlpv8kWwNXcY0YO4Z4kolja1Z4ZxV4=
           APP_DEBU=false
