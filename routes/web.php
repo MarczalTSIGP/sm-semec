@@ -66,7 +66,12 @@ Route::namespace('Admin')->group(function () {
 	Route::get('/edicts/{id}/edit', 	['as' => 'admin.edit.edict',    'uses' => 'EdictsController@edit']);
 	Route::patch('/edicts/{id}',		['as' => 'admin.update.edict',  'uses' => 'EdictsController@update']);
 	Route::delete('/edicts/{id}', 		['as' => 'admin.destroy.edict', 'uses' => 'EdictsController@destroy']);
-
+	
+	/* Vacancies by edicts resources
+	|-------------------------------------------------------------------------- */
+	Route::get('/edicts/{id}/vacancies', 	['as' => 'admin.new.vacancies',     'uses' => 'EdictsController@newVacancieInEdicts']);
+	Route::post('/edicts/vacancies', 	['as' => 'admin.create.vacancies',     'uses' => 'EdictsController@createVacancieInEdicts']);
+	
 	/* Pdfs resources
 	|-------------------------------------------------------------------------- */
 	Route::get('/edicts/{id}/pdfs', 	['as' => 'admin.index.pdf',     'uses' => 'PdfController@index']);

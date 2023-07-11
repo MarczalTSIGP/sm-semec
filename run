@@ -86,7 +86,7 @@ function clear:cache {
 function linters {
   cmd vendor/bin/phpcs --standard=phpcs.xml ./
   cmd vendor/bin/phpmd app,config,resources,routes,tests ansi phpmd.xml
-  cmd php -d memory_limit=3G vendor/bin/phpstan analyse -c phpstan.neon
+  cmd php -d memory_limit=3G vendor/bin/phpstan analyse -c phpstan.neon --xdebug  
 }
 
 function dusk {
@@ -94,7 +94,7 @@ function dusk {
 }
 
 function tests {
-   artisan test
+   artisan test "${@}"
 }
 
 function tests:migrate {
