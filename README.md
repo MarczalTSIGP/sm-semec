@@ -1,5 +1,4 @@
-
-[![Build Status](https://travis-ci.org/utfpr-gp-tsi/sm-semec.svg?branch=master)](https://travis-ci.org/utfpr-gp-tsi/sm-semec)
+![Github Actions Build Status](https://github.com/MarczalTSIGP/sm-semec/actions/workflows/ci.yml/badge.svg)
 [![Maintainability](https://api.codeclimate.com/v1/badges/79096310782066a6fd75/maintainability)](https://codeclimate.com/github/utfpr-gp-tsi/sm-semec/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/79096310782066a6fd75/test_coverage)](https://codeclimate.com/github/utfpr-gp-tsi/sm-semec/test_coverage)
 
