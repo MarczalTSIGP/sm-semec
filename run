@@ -114,6 +114,12 @@ function shell {
   cmd bash "${@}"
 }
 
+# Git commands
+# -----------------------------------------------------------------------------
+function git:clean:branchs {
+  git branch | grep -v '\*\|master\|main\|develop\|production' | xargs -n 1 git branch -D
+}
+
 function help {
   printf "%s <task> [args]\n\nTasks:\n" "${0}"
 
