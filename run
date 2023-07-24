@@ -120,6 +120,12 @@ function git:clean:branchs {
   git branch | grep -v '\*\|master\|main\|develop\|production' | xargs -n 1 git branch -D
 }
 
+# Deployer
+# -----------------------------------------------------------------------------
+function dep {
+  cmd vendor/bin/dep "${@}"
+}
+
 function help {
   printf "%s <task> [args]\n\nTasks:\n" "${0}"
 
