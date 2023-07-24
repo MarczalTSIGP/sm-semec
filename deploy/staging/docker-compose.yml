@@ -1,0 +1,47 @@
+version: "3.7"
+services:
+  #PHP Service
+  app-semec:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "9001:9000"
+    volumes:
+      - ./:/var/www/sm-semec
+      - ./shared/php/server.ini:/usr/local/etc/php/conf.d/server.ini
+      - vendor_path:/vendor
+    networks:
+      - app-network
+
+  #MySQL Service
+  db-semec:
+    image: mysql:8.0.33
+    command: --default-authentication-plugin=mysql_native_password
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_DATABASE: sm_semec
+      MYSQL_USER: sm-semec
+      MYSQL_PASSWORD: sm-semec
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+    volumes:
+      - dbdata:/var/lib/mysql
+      - ./shared/mysql/my.cnf:/etc/mysql/my.cnf
+    networks:
+      - app-network
+
+#Docker Networks
+networks:
+  app-network:
+    driver: bridge
+
+#Volumes
+volumes:
+  dbdata:
+    driver: local
+  vendor_path:

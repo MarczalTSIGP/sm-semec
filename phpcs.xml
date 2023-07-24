@@ -30,4 +30,7 @@
        <exclude-pattern>tests/CreatesApplication.php</exclude-pattern>
        <exclude-pattern>app/Console/Kernel.php</exclude-pattern>
     </rule>
+    <rule ref="Generic.Files.LineLength.TooLong">
+       <exclude-pattern>deploy.php</exclude-pattern>
+    </rule>
 </ruleset>
